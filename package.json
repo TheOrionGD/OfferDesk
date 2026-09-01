@@ -1,0 +1,16 @@
+{
+  "name": "offerdesk-saas-platform",
+  "version": "2.0.0",
+  "private": true,
+  "description": "OfferDesk Multi-Tenant SaaS Ecosystem (Capacitor Mobile App, Web Portal Console, & Services)",
+  "scripts": {
+    "start:all": "powershell -ExecutionPolicy Bypass -File ./run_system.ps1",
+    "stop:all": "powershell -ExecutionPolicy Bypass -File ./run_system.ps1 -Stop",
+    "start:app": "cd app && npm start",
+    "start:backend": "cd services/js-services && npm start",
+    "start:ml": "cd services/ml-services && uvicorn main:app --reload --port 8000",
+    "build:app": "cd app && npm run build",
+    "sync:android": "cd app && npm run build && npx cap sync android",
+    "test:e2e": "node scripts/test_all_endpoints.js"
+  }
+}

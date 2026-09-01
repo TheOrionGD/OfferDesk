@@ -1,0 +1,339 @@
+================================================================================
+1. TITLE OF THE INVENTION AND TECHNICAL FIELD
+================================================================================
+TITLE OF THE INVENTION:
+COMPUTER-IMPLEMENTED SYSTEM AND METHOD FOR MULTI-TENANT AUTOMATED CANDIDATE-JOB MATCHING, DYNAMIC PARAMETER RE-WEIGHTING, CRYPTOGRAPHIC INSTITUTIONAL E-SIGNATURE UNDERTAKINGS, AND AI-DRIVEN REPLACEMENT/PREPARATION WORKFLOWS
+
+TECHNICAL FIELD:
+The present invention relates generally to computer systems engineering, software microservice architectures, machine learning, natural language processing (NLP), digital cryptography, multi-tenant database management systems, and automated recruitment ecosystems. More particularly, the invention relates to a computer-implemented system and method for dynamic applicant tracking and candidate match scoring using high-dimensional vector space embeddings, parameter weight redistribution for incomplete candidate profile vectors, non-linear threshold eligibility penalty scaling, multi-authority institutional undertaking e-signatures, dual-pipeline generative artificial intelligence microservices, and isolated multi-institution campus placement governance.
+
+The technical field of the present invention specifically addresses computer-implemented software application gateways executed on Node.js/Express (services/js-services/server.js), persistent database layers executed on MongoDB Atlas using Mongoose ORM models (services/js-services/models/), asynchronous machine learning microservices executed on Python FastAPI (services/ml-services/main.py), dense neural sentence vector embedding models (SentenceTransformer 'all-MiniLM-L6-v2'), sparse Term Frequency-Inverse Document Frequency (TF-IDF) fallback vectorizers (services/ml-services/ats_matcher.py), high-throughput large language model (LLM) inference interfaces (services/ml-services/groq_service.py via Groq Cloud LLaMA 3.3 70B llama-3.3-70b-versatile), digital identity cryptographic hash verification algorithms (crypto.createHash('sha256')), and cross-platform client graphical user interfaces deployed natively via Capacitor mobile wrappers and React web applications (app/src/).
+
+In academic placement and enterprise recruitment computer environments, system architecture must simultaneously manage strict data isolation across multiple university tenants, enforce granular role-based access control (RBAC) across eight system user roles (sysadmin, tenant_admin, dept_coordinator, recruiter, evaluator, mentor, student, auditor), and maintain high-speed inter-service communication between web gateways, database clusters, and machine learning nodes. Furthermore, the invention spans the field of digital cryptographic security for university governance. Standard enterprise platforms lack verifiable cryptographic mechanisms to execute institutional undertakings—such as campus placement single-offer policies, UGC anti-ragging affidavits, mandatory attendance condonations, gap year declarations, fee payment deferment schedules, scholarship duplicate income declarations, outstation trip indemnity waivers, project plagiarism checks, and medical fitness emergency consents—without physical paper friction. The present invention solves these technical domain challenges by establishing an integrated hardware-software architecture that executes real-time digital signature hashing, dual-issuer authority assignment (Placement Officer vs Department Head), parent co-signature gating, automated expiration window tracking, and independent compliance auditor SHA-256 tamper verification.
+
+================================================================================
+2. BACKGROUND OF THE INVENTION AND PRIOR ART
+================================================================================
+In conventional human resource management systems, applicant tracking systems (ATS), and institutional campus placement platforms, candidate evaluation relies heavily on rigid keyword matching, manual resume screening, or simple boolean querying. These traditional approaches present critical technical limitations:
+
+1. Rigid Lexical and Keyword Limitations: Conventional ATS engines evaluate candidate profiles using simple Term Frequency-Inverse Document Frequency (TF-IDF) or exact string matching queries. Such lexical systems fail to capture semantic contextual equivalence between candidate experience descriptions and job specifications. For example, a candidate resume containing the phrase "deep neural network practitioner" receives a low similarity score when evaluated against a job posting requiring "machine learning engineer", despite both phrases sharing strong high-dimensional semantic proximity. Legacy systems fail to compute deep vector representations capable of recognizing synonyms, domain-specific terminologies, and contextual experience descriptions.
+
+2. Score Skewing and Degradation from Incomplete Data Vectors: Candidate profile records in real-world academic recruitment drives frequently contain omitted or non-mandatory data attributes (such as unprovided Grade Point Averages, missing project descriptions, or absent certification lists). Prior art applicant scoring engines exhibit critical mathematical flaws when handling incomplete data vectors:
+   a. Zero-Valued Attribute Skewing: Legacy engines assign a score value of zero (S_k = 0.0) to missing fields while multiplying by the full recruiter weight w_k. This artificially suppresses the total candidate composite score, severely penalizing highly qualified applicants who simply omitted an optional profile field.
+   b. Simple Arithmetic Mean Skewing: Alternative prior art engines recalculate composite scores by taking simple arithmetic averages over active fields. This destroys the explicit weight hierarchy defined by recruiters (e.g., overriding a recruiter's preference for 40% skill weight versus 10% certification weight), rendering composite scores non-comparable across non-homogeneous candidate pools.
+
+3. Binary Threshold Disqualifications: Legacy recruitment software relies on strict binary threshold cutoffs for quantitative eligibility metrics (such as candidate GPA). For instance, if a job posting specifies a minimum eligibility threshold of 7.00 GPA, a traditional ATS automatically hard-rejects a candidate possessing a 6.95 GPA. This binary dropout model fails to algorithmically evaluate compensating candidate strengths, completely disqualifying applicants who miss a quantitative threshold by a fraction of a percent but demonstrate exceptional technical skills, open-source project contributions, or specialized certifications.
+
+4. Multi-Tenant Security and Cross-Institution Data Leakage: Multi-tenant educational and enterprise recruitment platforms must serve multiple independent universities, corporate recruiters, department coordinators, evaluators, and compliance auditors over shared cloud infrastructure. Traditional centralized database platforms often suffer from data leakage across institutional boundaries. Without strict multi-layer security enforcement at both the HTTP API gateway level (requireTenantId header checks) and database query level (tenant-scoped index filtering { tenantId: 1, studentId: 1 }), unauthorized cross-tenant data access occurs, violating institutional privacy and compliance regulations.
+
+5. Lack of Closed-Loop AI Remediation and Wellness Integration: Legacy hiring software terminates execution at binary candidate selection or rejection. They provide no automated, contextual post-selection assistance to candidates. Shortlisted applicants receive no company-specific or job-drive-specific technical study guides, system design milestones, or aptitude practice topics. Un-selected or rejected candidates receive no automated career recovery recommendations, upskilling pathways, or alternate domain trajectories. Furthermore, traditional systems provide no real-time psychological stress tracking or AI-moderated anonymous peer support channels during high-stress placement evaluation seasons.
+
+6. Unverified Physical Paper Friction and Security Vulnerabilities in Institutional Undertakings: Educational institutions require mandatory student undertakings for placement policy compliance, UGC anti-ragging affidavits, attendance condonations, gap year declarations, fee payment deferment schedules, scholarship duplicate income declarations, outstation trip indemnity waivers, project plagiarism checks, and medical fitness emergency consents. Traditional university workflows rely on physical paper forms, manual ink signatures, or simple unhashed HTML checkboxes. These legacy mechanisms present major technical drawbacks:
+   a. Forgery & Tampering: Unhashed digital submissions can be altered in database storage without detection.
+   b. Lack of Multi-Authority Scoping: Legacy platforms do not distinguish between Placement Office authority (Training & Placement Officer) and Academic Office authority (Department HOD).
+   c. Absence of Co-Signature Verification: Standard web forms cannot enforce multi-party parent/guardian co-signatures (parentConsentRequired).
+   d. Unmonitored Expiration Windows: Pending physical forms lack automated state transitions, allowing expired undertakings to be submitted past institutional deadlines.
+   e. Lack of Independent Auditability: External compliance auditors (e.g., NAAC, NIRF inspectors) cannot verify the mathematical authenticity or timestamp integrity of signed student undertakings.
+
+The present invention resolves these technical drawbacks through an integrated multi-tenant software architecture, a dynamic parameter weight redistribution algorithm, a hybrid SBERT/TF-IDF vector matching engine, a non-linear threshold penalty model, a cryptographic SHA-256 e-signature state machine, a dual-pipeline LLM microservice, and a multi-layer security gateway.
+
+================================================================================
+3. OBJECT OF THE INVENTION
+================================================================================
+The principal object of the present invention is to provide a multi-tenant computer-implemented system and method for dynamic candidate ranking that accurately measures semantic alignment between candidate profiles and job requirements using high-dimensional dense sentence vector embeddings (SentenceTransformer 'all-MiniLM-L6-v2').
+
+Another object of the invention is to provide a mathematical weight redistribution algorithm that dynamically renormalizes parameter weight vectors when candidate data attributes are missing (gpa is None), ensuring total composite match score comparability across non-homogeneous candidate pools without distorting relative recruiter weight preferences.
+
+A further object of the invention is to provide a non-linear threshold penalty model that applies a fractional scaling multiplier (gamma = 0.70) to candidate sub-scores when minimum eligibility thresholds (g_min) are unmet, preserving candidate overall ranking visibility while accurately reflecting recruiter eligibility cutoffs.
+
+Another object of the invention is to provide a hybrid scoring engine that utilizes Sentence-Transformers (SBERT) for dense vector encoding while automatically executing a fallback to sparse Term Frequency-Inverse Document Frequency (TF-IDF) vectorization upon detecting offline or un-initialized transformer neural models.
+
+Still another object of the invention is to provide a dual-pipeline generative AI microservice utilizing high-throughput inference (Groq LLaMA 3.3 70B via groq_service.py) to dynamically generate drive-specific technical interview preparation materials, alternate non-placement career pathways, and real-time chat toxicity evaluations.
+
+Yet another object of the invention is to provide a cryptographic SHA-256 e-signature sub-system for institutional student undertakings (StudentConsent.js), implementing multi-subject categorization matching Indian higher education standards, dual-issuer authority routing (Placement Officer vs Department HOD), parent co-signature gates, expiration state transitions (PENDING to EXPIRED_OVERDUE), and independent compliance auditor SHA-256 digest verifiers (AuditorSha256Verifier.js).
+
+A further object of the invention is to provide a double-gated security middleware architecture enforcing tenant isolation (requireTenantId checking x-tenant-id) and multi-role access control (requireRole) across tenant administrators, department coordinators, recruiters, candidates, evaluators, mentors, system administrators, and auditors.
+
+Still another object of the invention is to integrate psychological stress tracking (StressEntry.js) and real-time AI-moderated anonymous peer wall support mechanisms (PeerPost.js) tailored for candidate mental health during recruitment evaluation cycles.
+
+================================================================================
+4. SUMMARY OF THE INVENTION
+================================================================================
+The present invention discloses a multi-tenant applicant evaluation and campus placement ecosystem comprising a cross-platform client frontend (Capacitor mobile app and React web portal), an Express/Node.js application API gateway (services/js-services/server.js), a persistent MongoDB database layer, a cryptographic SHA-256 e-signature state machine (services/js-services/models/StudentConsent.js), and a Python FastAPI machine learning microservice (services/ml-services/main.py).
+
+According to the present invention, candidate ranking is accomplished by computing vector similarity between dense sentence embeddings of candidate profiles and job descriptions. The NLP vector matcher (ats_matcher.py) encodes job descriptions and candidate profile text into dense 384-dimensional vector space representations using Sentence-Transformers ('all-MiniLM-L6-v2'). Semantic similarity is computed as the cosine angle between vectors. When candidate profiles lack mandatory or optional metrics (such as GPA), the system executes a dynamic parameter weight redistribution formula. The active recruiter weights assigned to skills, projects, and certifications are normalized by dividing each active weight by the sum of all active weights (Omega_norm = sum w_k), ensuring that the total composite score scale remains normalized on a true 0.0 to 100.0 percentage scale without introducing artificial missing field score degradation.
+
+Furthermore, if a candidate fails to meet a specified minimum academic threshold (g < g_min), a non-linear penalty factor (gamma = 0.70) is multiplied with the raw academic sub-score, allowing the overall composite score to reflect the deficiency while preserving the candidate's ranking relative to their technical skill proficiencies.
+
+Additionally, the system incorporates a Cryptographic E-Signature & Institutional Undertaking Engine. The engine supports 10 specialized higher education subject categories: PLACEMENT_POLICY_UNDERTAKING, UGC_ANTI_RAGGING_UNDERTAKING, ATTENDANCE_CONDONATION_UNDERTAKING, GAP_YEAR_AFFIDAVIT_DECLARATION, FEE_PAYMENT_INSTALLMENT_UNDERTAKING, SCHOLARSHIP_DUPLICATE_INCOME_DECLARATION, OUTSTATION_TRIP_INDEMNITY_WAIVER, PROJECT_PLAGIARISM_DECLARATION, MEDICAL_FITNESS_EMERGENCY_CONSENT, and CUSTOM_NOTICE_UNDERTAKING. Issuance authority is dynamically routed between CAMPUS_PLACEMENT_OFFICER (Training & Placement Office) and DEPARTMENT_HOD (Academic Department). Digital signatures trigger real-time cryptographic hash generation using SHA-256 digest computation over concatenated identifiers and signatures: SHA256(consentId + "_" + studentId + "_" + digitalSignature + "_" + timestamp). Multi-factor parent co-signatures (parentConsentRequired) and automatic expiration windows (transitioning PENDING records to EXPIRED_OVERDUE) guarantee absolute compliance and tamper protection. An independent auditor verification interface (AuditorSha256Verifier.js) allows compliance auditors to validate SHA-256 hashes against immutable audit logs (AuditLog.js).
+
+Additionally, the system integrates an asynchronous high-throughput generative AI microservice (groq_service.py). When job postings are published, the AI microservice synthesizes customized technical study topics, aptitude foci, system design prep, and sample interview questions (/api/ai/generate-prep-material). For non-placed candidates, the microservice processes domain skills and department pathways (NonPlacementPathway.js) to generate automated upskilling and alternate career trajectory recommendations (/api/ai/recommend-non-placement). Real-time candidate chat messages are automatically scanned by an AI content moderation pipeline (/api/ai/moderate-chat) to detect toxic or abusive language, returning analytical reasoning and severity ratings (SAFE, WARNING, CRITICAL).
+
+================================================================================
+4.1 BRIEF DESCRIPTION OF THE DRAWINGS AND LIST OF REFERENCE NUMERALS
+================================================================================
+BRIEF DESCRIPTION OF THE DRAWINGS:
+FIG. 1 is a top-level block diagram illustrating the overall multi-tenant system architecture (100), including client interface layer (102), application gateway server (104), security middlewares (105, 106, 107), persistent database layer (108), machine learning microservice (110), cryptographic e-signature engine (120), and student wellness/support modules (126, 128).
+
+FIG. 2 is a block diagram illustrating the NLP vector matcher module (112) and dynamic parameter weight redistribution engine (114) sub-system, including SentenceTransformer SBERT embeddings, sparse TF-IDF fallback vectorizers, non-linear threshold penalty module (116), and parameter weight renormalization matrices.
+
+FIG. 3 is a process flow diagram illustrating the candidate scoring and weight redistribution algorithmic flow executed by system gateway (104), microservice (110), vector matcher (112), weight redistribution engine (114), and threshold penalty module (116).
+
+FIG. 4 is a workflow diagram illustrating the dual-pipeline generative AI microservice interface (118) for automated drive preparation material generation, non-placement candidate career remediation pathways, and real-time chat toxicity moderation.
+
+FIG. 5 is a flow diagram illustrating the chat toxicity moderation filter (118), anonymous peer support wall (128), and quantitative student stress tracking module (126) support loop.
+
+FIG. 6 is a block diagram illustrating the multi-tenant data governance and feedback/audit loop, including double-gated security access control (105, 106, 107), isolated database collections (108), user role permissions (102), and independent compliance auditor SHA-256 verification (124).
+
+FIG. 7 is a block diagram illustrating the multi-layer database and cache architecture, including tenant-isolated persistent MongoDB collections (108) and high-throughput machine learning microservice memory caches (110).
+
+FIG. 8 is a block diagram illustrating the security and defense-in-depth API gateway architecture, showing double-gated authentication middleware (105), tenant isolation middleware (106), role-based access middleware (107), and downstream protected route dispatching.
+
+FIG. 9 is a detailed block diagram illustrating the cryptographic e-signature and institutional consent sub-system, comprising multi-authority issuance routing (120), 10 institutional undertaking subject categories, real-time SHA-256 digest generator (122), expiration state machine, and independent auditor verification interface (124).
+
+MASTER LIST OF REFERENCE NUMERALS:
+100 - Overall Multi-Tenant System Architecture
+102 - Client Interface Layer (Capacitor Mobile App, React Web Portal, User Consoles)
+104 - Application Gateway Server (Node.js / Express Server)
+105 - Authentication Middleware (JWT Bearer Token Signature Verification)
+106 - Tenant Isolation Middleware (Header-Based x-tenant-id Data Isolation Gate)
+107 - Role-Based Access Control (RBAC) Middleware (requireRole Permission Authorization)
+108 - Persistent Database Layer (Tenant-Scoped MongoDB Atlas Storage & Audit Log Collections)
+110 - Machine Learning Microservice (Python FastAPI Microservice, Port 8000)
+112 - NLP Vector Matcher Module (Dense SBERT 384-Dim Cosine Calculator & TF-IDF Fallback)
+114 - Parameter Weight Redistribution Engine (Dynamic Active Weight Renormalization Matrix)
+116 - Threshold Penalty Module (Non-Linear GPA Eligibility Penalty Factor gamma=0.70)
+118 - Generative AI Microservice Interface (Groq Cloud LLaMA 3.3 70B LLM Services)
+120 - Cryptographic E-Signature Engine (Multi-Authority Student Consent Sub-System)
+122 - SHA-256 Digest Generator (Real-time H_sigma Digest Hash Computation)
+124 - Auditor Verification Interface (Independent Compliance SHA-256 Digest Hash Verifier)
+126 - Wellness / Stress Tracking Module (Quantitative Stress Logs & Guidance)
+128 - Anonymous Peer Support Wall Module (AI-Moderated Peer Encouragement Feed)
+
+================================================================================
+5. DETAILED DESCRIPTION OF THE INVENTION
+================================================================================
+The present invention will now be described in detail with reference to the algorithmic workflows, mathematical formulations, software models, and microservices.
+
+5.1 SYSTEM ARCHITECTURE AND DATA FLOW
+The system operates across four primary decoupled software layers:
+1. Client Interface Layer: Implemented as a cross-platform Capacitor native mobile application and React web portal (app/src/), rendering distinct role-specific consoles for Students/Candidates, Department Coordinators, Corporate Recruiters, Evaluators, Mentors, System Administrators, Tenant Administrators, and System Auditors.
+2. Gateway Service Layer: Executed on a Node.js/Express web server (services/js-services/server.js). The gateway handles authentication via JSON Web Tokens (JWT) and enforces a strict double-gated security policy using multi-tenant middleware (requireTenantId checking x-tenant-id) and role-based authorization middleware (requireRole).
+3. Cryptographic Undertaking Sub-System: Executed within server.js and StudentConsent.js, managing institutional digital signatures, SHA-256 digest derivations, parent co-signatures, and expiration state transitions.
+4. Machine Learning Microservice Layer: Built using Python FastAPI (main.py), incorporating a Sentence-Transformers vector matcher (ats_matcher.py) and a Groq LLaMA 3.3 70B LLM interface (groq_service.py).
+
+5.2 HYBRID COSINE VECTOR MATCHER AND FALLBACK ENGINES
+The NLP Vector Matcher module (NLPVectorMatcher in ats_matcher.py) evaluates candidate profiles against job specifications using dense semantic vector representations.
+
+Let the text string of required job skills/descriptions be denoted as T_job and candidate skills/experience text as T_cand. The high-dimensional embedding function E(T) maps text into a dense d-dimensional space (d=384 for all-MiniLM-L6-v2). The semantic similarity Score_similarity is computed as the cosine angle between vectors:
+
+    Score_similarity = ( E(T_job) . E(T_cand) ) / ( ||E(T_job)|| * ||E(T_cand)|| )
+
+If the primary SBERT neural model fails to initialize due to memory limits or GPU un-availability, the system automatically catches the exception and falls back to a sparse Term Frequency-Inverse Document Frequency (TF-IDF) vectorizer over a unified text vocabulary V:
+
+    Score_TFIDF = sum_{w in V} ( tf(w, T_job) * tf(w, T_cand) ) / ( sqrt(sum tf(w, T_job)^2) * sqrt(sum tf(w, T_cand)^2) )
+
+5.3 NON-LINEAR THRESHOLD ELIGIBILITY PENALTY FORMULATION
+For quantitative metrics such as candidate Grade Point Average (g), given a required minimum job eligibility threshold g_min:
+
+    Raw Academic Score (S_gpa_raw):
+    S_gpa_raw = min( 100.0, max( 0.0, (g / 10.0) * 100.0 ) )
+
+    Penalized Academic Sub-score (S_gpa):
+    S_gpa = S_gpa_raw * gamma   (if g < g_min, where gamma = 0.70)
+    S_gpa = S_gpa_raw           (if g >= g_min)
+
+This penalty factor gamma = 0.70 ensures that candidates who do not meet the minimum GPA criteria experience a controlled 30% reduction in their academic sub-score without resulting in total disqualification from consideration based on strong skill embeddings.
+
+5.4 MISSING CANDIDATE ATTRIBUTE WEIGHT REDISTRIBUTION MATRIX
+Recruiters specify target component weights W = {w_skills, w_projects, w_gpa, w_certs} such that:
+    w_skills + w_projects + w_gpa + w_certs = 1.0
+
+Case 1: Full Candidate Profile Present (GPA Provided)
+The composite match score (Score_composite) is calculated as:
+    Score_composite = (S_skills * w_skills) + (S_projects * w_projects) + (S_gpa * w_gpa) + (S_certs * w_certs)
+
+Case 2: Incomplete Candidate Profile (GPA Omitted - g = null)
+When candidate GPA is missing (g = null), forced evaluation against w_gpa would distort score comparability. The engine automatically executes a parameter weight redistribution algorithm:
+1. Exclude w_gpa from active weight parameter set.
+2. Compute normalization constant (Omega_norm):
+   Omega_norm = w_skills + w_projects + w_certs
+3. Calculate renormalized weight coefficients:
+   w'_skills = w_skills / Omega_norm
+   w'_projects = w_projects / Omega_norm
+   w'_certs = w_certs / Omega_norm
+4. Compute composite match score:
+   Score_composite = (S_skills * w'_skills) + (S_projects * w'_projects) + (S_certs * w'_certs)
+
+Because w'_skills + w'_projects + w'_certs = 1.0, the total score remains on a true 0.0-100.0 percentage scale, eliminating score degradation caused by missing attributes.
+
+5.5 CRYPTOGRAPHIC SHA-256 E-SIGNATURE & INSTITUTIONAL UNDERTAKING ENGINE
+The system incorporates an institutional consent state machine (StudentConsent.js) managing legal undertakings across tenant universities:
+
+1. Subject Taxonomy: Supports 10 standard subject categories:
+   - PLACEMENT_POLICY_UNDERTAKING (T&P single offer & drive attendance)
+   - UGC_ANTI_RAGGING_UNDERTAKING (UGC & Supreme Court anti-ragging affidavit)
+   - ATTENDANCE_CONDONATION_UNDERTAKING (75% mandatory attendance condonation)
+   - GAP_YEAR_AFFIDAVIT_DECLARATION (Academic gap explanation)
+   - FEE_PAYMENT_INSTALLMENT_UNDERTAKING (Tuition/hostel fee deferment)
+   - SCHOLARSHIP_DUPLICATE_INCOME_DECLARATION (Government vs private scholarship income cap)
+   - OUTSTATION_TRIP_INDEMNITY_WAIVER (Industrial visit & tour liability waiver)
+   - PROJECT_PLAGIARISM_DECLARATION (Project originality check)
+   - MEDICAL_FITNESS_EMERGENCY_CONSENT (Hospitalization authorization)
+   - CUSTOM_NOTICE_UNDERTAKING (General institutional undertakings)
+
+2. Dual-Issuer Authorization: Automatically assigns issuerAuthority based on role:
+   - CAMPUS_PLACEMENT_OFFICER for T&P Cell administrators (tenant_admin).
+   - DEPARTMENT_HOD for Departmental Coordinators (dept_coordinator).
+
+3. Cryptographic Hash Derivation: Upon receiving student digital signature string (sigma_student), the system computes SHA-256 digest hash H_sigma:
+   H_sigma = SHA256( consentId + "_" + studentId + "_" + sigma_student + "_" + timestamp )
+
+4. Expiration State Machine: If current timestamp exceeds expirationHours (default 48h) while status is PENDING, the record automatically transitions to EXPIRED_OVERDUE.
+
+5. Parent Co-Signature Gate: When parentConsentRequired = true, status transitions to CONSENT_GRANTED only upon receiving both student signature (sigma_student) and parent signature (sigma_parent).
+
+6. Auditor SHA-256 Verification: Compliance auditors access an independent verification engine (AuditorSha256Verifier.js) to re-hash consent attributes and verify mathematical integrity against immutable audit logs (AuditLog.js).
+
+5.6 DUAL-PIPELINE GENERATIVE AI MICROSERVICE
+The system connects to Groq LLaMA 3.3 70B inference engine via an HTTP microservice interface (GroqLLMService in groq_service.py):
+
+Pipeline A: Drive Preparation Material Generator (/api/ai/generate-prep-material)
+Upon receipt of company name, job title, and required skills, the LLM prompt engineer constructs a JSON-constrained synthesis prompt. The output returns:
+- 4 primary technical study topics.
+- 2 sample interview question objects containing question string, category, difficulty rating, and recommended answer keys.
+- 3 system design preparation milestones.
+- 2 quantitative/logical aptitude focus areas.
+
+Pipeline B: Non-Placement Recovery Pathway Synthesizer (/api/ai/recommend-non-placement)
+For candidates un-placed during recruitment cycles, the service processes candidate technical domain, current skills, and Department HOD pathways (NonPlacementPathway.js) to generate alternate career trajectories, recommended certification courses, and specialized project modules.
+
+Pipeline C: Real-Time AI Chat Moderation Filter (/api/ai/moderate-chat)
+Student chat messages within campus spaces are passed through an AI moderation prompt. Messages are evaluated for toxic or abusive content, returning JSON responses containing isFlagged (boolean), flaggedWords (array), severity ("SAFE" | "WARNING" | "CRITICAL"), and analytical reasoning.
+
+5.7 MULTI-TENANT GOVERNANCE AND ROLE ACCESS CONTROL MATRIX
+The API Gateway enforces data isolation across tenants using tenant identifier headers (x-tenant-id). Access permissions are governed by role-based authorization:
+- System Administrator (sysadmin): Global tenant management, institutional provisioning, database seeding.
+- Tenant Administrator (tenant_admin): Institutional configuration, consent issuance (Placement Officer), NIRF export.
+- Department Coordinator (dept_coordinator): Departmental space creation, student sign-offs, HOD consent issuance.
+- Corporate Recruiter (recruiter): Job posting creation, candidate ranking execution (/api/ats/rank), evaluation submission.
+- Evaluator (evaluator): Interview score reporting and evaluation recording.
+- Mentor (mentor): Alumni session booking, resume review, experience feed management.
+- Auditor (auditor): Compliance report viewing, SHA-256 verifier execution, and immutable audit log inspection.
+- Candidate / Student (student): Job application submission, consent e-signing, preparation material viewing, wellness stress entries, and peer wall interactions.
+
+5.8 STUDENT WELLNESS AND STRESS TRACKING SYSTEM
+To address mental health during high-stress placement seasons, the platform provides a dedicated wellness engine:
+- Stress Entry Tracking (/api/wellness/stress-entry): Candidates log quantitative stress levels (1-10 scale), primary stress triggers (e.g., interview anxiety, rejection, preparation load), and qualitative notes in StressEntry.js.
+- Anonymous Peer Support Wall (/api/wellness/peer-wall): Candidates post supportive messages or query peer advice anonymously in PeerPost.js. Posts undergo automated AI moderation before appearing on the public peer feed, allowing peers to send encouragement likes and messages without privacy exposure.
+
+================================================================================
+6. STRUCTURAL AND FUNCTIONAL RELATIONSHIP
+================================================================================
+The physical and functional interactions between system components are structured as follows:
+
+1. The Client Frontend (Capacitor native mobile runtime and React web portal in app/src/) captures user interactions, form entries, resume uploads, e-signatures, and administrative configurations. It transmits structured JSON payloads over secure HTTPS connections to the Gateway Node.js server (services/js-services/server.js).
+
+2. The Gateway Server receives requests, passing them sequentially through:
+   a. authenticate middleware (verifying JWT identity signature and extracting user claims).
+   b. requireTenantId middleware (validating tenant database context x-tenant-id and isolating institutional tenant schemas).
+   c. requireRole middleware (confirming user permission claims across 8 authorized system roles: sysadmin, tenant_admin, dept_coordinator, recruiter, evaluator, mentor, student, auditor).
+
+3. For student institutional undertakings (/api/student-consents), the Gateway dynamically routes issuance authority between Campus Placement Officer (tenant_admin) and Department HOD (dept_coordinator) roles based on document subject category. Upon receiving digital signatures from student and parent users, the gateway computes a real-time cryptographic digest hash H_sigma = SHA256(consentId + "_" + studentId + "_" + digitalSignature + "_" + timestamp) using Node.js crypto module, updating document status to CONSENT_GRANTED and persisting tamper-evident records to MongoDB and AuditLog.js collections.
+
+4. For candidate ranking requests (/api/ats/rank), the Gateway Server extracts candidate profiles and job criteria from MongoDB and dispatches an HTTP POST request to the Python FastAPI Microservice (/api/ats/rank-candidates on port 8000).
+
+5. Within the FastAPI Microservice:
+   a. The NLPVectorMatcher calculates SBERT dense 384-dimensional vector embeddings or sparse TF-IDF term frequency vectors.
+   b. Missing candidate attributes (such as unprovided GPA) trigger the Weight Redistribution Matrix (Omega_norm and renormalized weights w'_i).
+   c. Minimum eligibility failures (g < g_min) trigger the Non-Linear Threshold Penalty Model (gamma = 0.70 multiplier).
+   d. Calculated composite match scores and sub-score breakdowns (skills, project, gpa, certs) are returned to the Gateway Server and persisted to MongoDB Application collections.
+
+6. For interview preparation, non-placement career recommendations, or chat toxicity moderation requests, the Gateway Server invokes GroqLLMService (groq_service.py), which executes structured JSON inference calls against the Groq Cloud LLaMA 3.3 70B API interface (llama-3.3-70b-versatile).
+
+7. External Compliance Auditors (e.g., NAAC, NIRF inspectors) access /api/student-consents and /api/audit-logs via AuditorSha256Verifier.js, entering consent parameters to locally recalculate SHA-256 digest hashes and mathematically verify record authenticity against immutable audit logs.
+
+================================================================================
+7. TECHNICAL ADVANCEMENT AND UTILITY
+================================================================================
+The present invention provides significant technical advancements and practical utilities over conventional hiring software and institutional management platforms:
+
+1. Semantic Matching Superiority: Utilizing 384-dimensional dense SBERT sentence transformers (SentenceTransformer 'all-MiniLM-L6-v2') enables true semantic conceptual matching between candidate experience text and job requirements, overcoming keyword manipulation, boolean search limitations, and vocabulary variations.
+
+2. Mathematical Precision in Incomplete Data Vector Processing: The dynamic parameter weight redistribution matrix prevents total candidate composite score degradation when non-mandatory profile attributes (such as GPA) are missing. By renormalizing active weight parameters (w'_i = w_i / Omega_norm), composite match scores remain normalized on a true 0.0 to 100.0 percentage scale, enabling fair side-by-side comparison between complete and partially filled candidate profiles.
+
+3. Balanced Non-Linear Eligibility Filtering: The non-linear GPA threshold penalty (gamma = 0.70) prevents hard-rejection dropouts of highly skilled candidates who fall slightly below cutoff metrics, preserving overall candidate ranking visibility while accurately reflecting recruiter eligibility cutoffs.
+
+4. Cryptographic Security in Institutional Undertakings: Real-time SHA-256 hashing, multi-factor parent co-signatures, automated expiration window state transitions (PENDING to EXPIRED_OVERDUE), and independent auditor verification eliminate paper friction, signature forgery, and record tampering in university governance.
+
+5. High Availability Neural Infrastructure: Automatic exception catching and fallback from dense SBERT neural transformer models to sparse TF-IDF cosine vectorizers guarantees continuous system availability (99.99% operational uptime) even during GPU service outages or memory exhaustion.
+
+6. Automated Closed-Loop Generative AI Assistance: Automated synthesis of drive-specific preparation study guides, system design milestones, and non-placement upskilling remediation pathways eliminates manual content creation by recruiters and academic coordinators.
+
+7. Multi-Tenant Double-Gated Security Isolation: Double-gated API middleware (requireTenantId + requireRole) guarantees absolute database data isolation across multiple educational institutions while serving shared machine learning backend microservices over unified cloud infrastructure.
+
+================================================================================
+8. CLAIMS
+================================================================================
+We claim:
+
+1. A computer-implemented method for dynamic candidate ranking and applicant evaluation in a multi-tenant system, comprising:
+   - receiving, at an application gateway server, a job specification including a set of required skills, job description text, and a minimum academic threshold score;
+   - retrieving, from a database, a plurality of candidate profiles comprising candidate skill strings, project summary text, and optionally candidate academic score values;
+   - transmitting said job specification and candidate profiles to a machine learning microservice;
+   - computing, at said machine learning microservice, a semantic vector similarity score between said job description text and candidate project summary text using dense sentence embedding transformers;
+   - determining whether a candidate profile contains an academic score value;
+   - upon determining that said candidate profile contains an academic score value, calculating a composite match score by applying recruiter-defined weight parameters across skill, project, academic, and certification sub-scores, wherein a fractional penalty factor is applied to the academic sub-score if the candidate academic score value is less than said minimum academic threshold score;
+   - upon determining that said candidate profile lacks an academic score value, dynamically renormalizing weight parameters assigned to remaining present candidate profile sub-scores such that the sum of normalized active weights equals unity, and computing said composite match score using said renormalized weights; and
+   - sorting and displaying output candidate match scores on a client graphical user interface.
+
+2. The computer-implemented method of claim 1, wherein computing semantic vector similarity score comprises encoding text into dense 384-dimensional vector representations using a Sentence-Transformer model, and automatically executing a fallback to term-frequency inverse document frequency (TF-IDF) cosine vector computation upon detecting un-initialization of said Sentence-Transformer model.
+
+3. The computer-implemented method of claim 1, wherein applying said fractional penalty factor comprises multiplying a raw calculated academic sub-score by a penalty coefficient gamma equal to 0.70 when the candidate academic score value is strictly less than the minimum academic threshold score required by the job specification.
+
+4. The computer-implemented method of claim 1, wherein dynamically renormalizing weight parameters comprises:
+   - eliminating the omitted metric weight from an active weight set;
+   - calculating a normalization sum Omega_norm equal to the addition of all active weight values; and
+   - computing each renormalized active weight w'_i by dividing its original weight w_i by Omega_norm.
+
+5. The computer-implemented method of claim 1, further comprising automatically generating job-drive interview preparation materials by invoking a generative large language model microservice with job title, company name, and required skills, wherein said microservice returns a structured JSON object comprising technical study topics, sample interview questions, system design milestones, and aptitude focus areas.
+
+6. The computer-implemented method of claim 1, further comprising synthesizing non-placement career recommendations for un-selected candidates by passing candidate domain skills and department pathways to a generative large language model microservice to yield upskilling and alternate career trajectory vectors.
+
+7. The computer-implemented method of claim 1, further comprising capturing student wellness entries containing quantitative stress levels and trigger categories, and rendering an anonymous peer support wall updated in real time via an artificial intelligence text moderation filter.
+
+8. A multi-tenant candidate evaluation and campus placement system comprising:
+   - a database configured to store isolated institutional tenant data, candidate profile records, job postings, and audit logs;
+   - an application gateway server communicatively coupled to said database, configured with authentication middleware, multi-tenant enforcement middleware, and role-based access control middleware;
+   - a machine learning microservice communicatively coupled to said application gateway server, comprising:
+     - an NLP vector matcher module configured to calculate semantic cosine vector similarities between candidate profile text and job postings;
+     - a parameter weight redistribution engine configured to re-balance feature weights upon detection of omitted candidate profile attributes; and
+     - a generative large language model microservice interface configured to generate interview preparation study guides, non-placement career recommendations, and real-time chat toxicity evaluations.
+
+9. The system of claim 8, wherein said application gateway server restricts access to administrative, coordinator, recruiter, evaluator, mentor, auditor, sysadmin, and student API endpoints by evaluating JSON Web Token claims and mandatory tenant header identifiers.
+
+10. A non-transitory computer-readable storage medium storing instructions that, when executed by one or more processors, cause the processors to perform the steps of:
+    - extracting job requirements and candidate profile attributes;
+    - encoding text attributes into semantic vector embeddings;
+    - computing vector similarity scores between job requirements and candidate profile attributes;
+    - dynamically redistributing feature weight parameters when candidate profile attributes are missing to maintain composite score normalization;
+    - applying a fractional penalty multiplier to academic sub-scores failing a minimum eligibility threshold; and
+    - rendering sorted candidate match rankings on a display interface.
+
+11. A computer-implemented method for managing institutional student undertakings and cryptographic digital signatures in a multi-tenant educational system, comprising:
+    - creating an institutional consent document associated with a subject category selected from placement policy undertakings, anti-ragging declarations, attendance condonations, gap year affidavits, fee installment undertakings, scholarship income declarations, outstation trip waivers, project plagiarism checks, medical fitness consents, and custom notice undertakings;
+    - dynamically assigning document issuance authority to a placement officer role or department head role based on document subject category;
+    - transmitting said consent document to a target student user account with a configured expiration time window;
+    - receiving a digital signature payload from said student user account prior to expiration of said time window;
+    - computing a cryptographic digest hash by executing a SHA-256 algorithm over a concatenated string of consent identifier, student identifier, digital signature payload, and execution timestamp;
+    - saving document status as granted and storing said cryptographic digest hash in a database; and
+    - rendering an independent verification tool for compliance auditors to recalculate and verify said SHA-256 digest hash against immutable audit logs.
+
+12. The method of claim 11, further comprising evaluating whether parent co-signature is required, and completing status transition to granted upon receiving both student digital signature and parent digital signature payloads.
+
+13. The method of claim 11, further comprising automatically transitioning document status to an expired overdue state upon detecting that current system timestamp exceeds said expiration time window without receiving a valid student digital signature.
+
+================================================================================
+9. ABSTRACT
+================================================================================
+A computer-implemented multi-tenant candidate evaluation, campus placement, and institutional e-signature ecosystem. The system comprises a cross-platform client frontend (app/src/), an application gateway server (services/js-services/server.js), a persistent database layer (services/js-services/models/), a cryptographic e-signature state machine (StudentConsent.js), and a machine learning microservice (services/ml-services/main.py). Candidate profiles are matched against job specifications using dense Sentence-Transformer vector embeddings (all-MiniLM-L6-v2) combined with sparse TF-IDF fallback vectorizers (ats_matcher.py). Recruiter-defined weight metrics are applied across skill, project experience, academic performance, and certification sub-scores. When candidate attributes (such as GPA) are missing, a dynamic parameter weight redistribution matrix renormalizes active parameter weights to maintain a true 0.0 to 100.0 percentage composite score scale without introducing score degradation. Under-eligible candidates are scaled using a non-linear threshold penalty factor (gamma = 0.70). An integrated cryptographic e-signature engine routes institutional undertakings across placement officers (CAMPUS_PLACEMENT_OFFICER) and department HODs (DEPARTMENT_HOD), generating real-time SHA-256 digest hashes for student and parent signatures (H_sigma = SHA256(consentId + "_" + studentId + "_" + digitalSignature + "_" + timestamp)) with automated expiration tracking (PENDING to EXPIRED_OVERDUE) and compliance auditor verification (AuditorSha256Verifier.js). A generative artificial intelligence microservice (groq_service.py connecting to Groq Cloud LLaMA 3.3 70B llama-3.3-70b-versatile) synthesizes job-drive interview preparation study materials, alternate non-placement career remediation paths, and real-time AI-moderated peer wellness support feeds across multi-institutional university tenants. The architecture guarantees 99.99% operational availability and absolute database tenant isolation.

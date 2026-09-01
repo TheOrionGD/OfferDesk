@@ -1,0 +1,539 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+/* ------------------------------------------------------------------------------
+ * 🎨 NEUMORPHIC SOFT-3D LIGHT UI DESIGN SYSTEM (Exact User Uploaded Spec)
+ * ------------------------------------------------------------------------------ */
+:root {
+  /* Exact Green & Teal Palette Tokens */
+  --color-primary-50: #e8f5e9;
+  --color-primary-100: #c8e6c9;
+  --color-primary-200: #a5d6a7;
+  --color-primary-300: #81c784;
+  --color-primary-400: #66bb6a;
+  --color-primary-500: #4caf50;
+  --color-primary-600: #43a047;
+  --color-primary-700: #388e3c;
+  --color-primary-800: #2e7d32;
+  --color-primary-900: #1b5e20;
+  --color-accent-a100: #b9f6ca;
+  --color-accent-a200: #69f0ae;
+  --color-accent-a400: #00e676;
+  --color-accent-a700: #00c853;
+
+  /* Neumorphic Soft Light Base Tokens */
+  --bg-neu-base: #eef2f7;
+  --bg-neu-paper: #eef2f7;
+  --bg-neu-white: #ffffff;
+
+  --neu-shadow-outer: 8px 8px 18px #d1d9e6, -8px -8px 18px #ffffff;
+  --neu-shadow-sm: 4px 4px 10px #d1d9e6, -4px -4px 10px #ffffff;
+  --neu-shadow-lg: 12px 12px 28px #cbd5e1, -12px -12px 28px #ffffff;
+  --neu-shadow-inner: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
+  --neu-shadow-teal: 0 8px 22px rgba(0, 200, 83, 0.35);
+  --neu-shadow-cyan: 0 8px 22px rgba(14, 165, 233, 0.35);
+
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+
+  --border-subtle: rgba(255, 255, 255, 0.8);
+  --border-emerald-glow: rgba(76, 175, 80, 0.4);
+
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-full: 9999px;
+
+  --transition-system: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-neu-base);
+  color: var(--text-primary);
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Custom Soft Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #eef2f7;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ------------------------------------------------------------------------------
+ * 💎 NEUMORPHIC SOFT-3D COMPONENT CLASSES
+ * ------------------------------------------------------------------------------ */
+
+/* Extruded Soft 3D Card */
+.neu-card, .glass-card {
+  background: var(--bg-neu-base);
+  box-shadow: var(--neu-shadow-outer);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-md);
+  transition: var(--transition-system);
+}
+
+.neu-card-hover:hover, .glass-card-hover:hover {
+  box-shadow: var(--neu-shadow-lg);
+  transform: translateY(-3px);
+}
+
+/* Debossed Inset Soft Input */
+.neu-input {
+  background: var(--bg-neu-base);
+  box-shadow: var(--neu-shadow-inner);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  transition: var(--transition-system);
+}
+
+/* Vibrant Soft-3D Glow Button */
+.neu-btn-primary, .sys-btn-glow {
+  background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  padding: 10px 24px;
+  box-shadow: var(--neu-shadow-teal);
+  border: none;
+  transition: var(--transition-system);
+}
+
+.neu-btn-primary:hover, .sys-btn-glow:hover {
+  background: linear-gradient(135deg, #00b048 0%, #00c853 100%);
+  box-shadow: 0 12px 28px rgba(0, 200, 83, 0.45);
+  transform: translateY(-2px);
+}
+
+.neu-btn-secondary {
+  background: var(--bg-neu-base);
+  color: var(--text-primary);
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  padding: 10px 24px;
+  box-shadow: var(--neu-shadow-outer);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: var(--transition-system);
+}
+
+.neu-btn-secondary:hover {
+  box-shadow: var(--neu-shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Neumorphic Active & Inactive Pill Chips */
+.neu-chip-active {
+  background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+
+.neu-chip-inactive {
+  background: var(--bg-neu-base);
+  color: var(--text-secondary);
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  box-shadow: var(--neu-shadow-sm);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Floating Soft-3D Bottom Navigation Container */
+.neu-floating-nav {
+  background: #eef2f7;
+  box-shadow: 10px 10px 25px #c8d3e6, -10px -10px 25px #ffffff;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  margin: 10px 16px;
+}
+
+/* Floating Action Circle Button (+) */
+.neu-fab-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 200, 83, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  border: 3px solid #eef2f7;
+  transition: var(--transition-system);
+}
+
+.neu-fab-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 14px 28px rgba(0, 200, 83, 0.5);
+}
+
+/* Live Pulse Indicator Dot */
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-accent-a400);
+  box-shadow: 0 0 10px var(--color-accent-a400);
+  animation: pulseLive 1.8s infinite;
+}
+
+@keyframes pulseLive {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 230, 118, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+}
+
+/* ------------------------------------------------------------------------------
+ * 📱 MOBILE OVERFLOW & CONTAINER PROTECTIONS
+ * ------------------------------------------------------------------------------ */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: auto;
+  width: 100%;
+  position: relative;
+  background-color: #dce4ec;
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+/* Fix Typography Word Breaking: Headings and flex items should never wrap letter-by-letter */
+h1, h2, h3, h4, h5, h6, 
+.MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3, 
+.MuiTypography-h4, .MuiTypography-h5, .MuiTypography-h6,
+.MuiTypography-subtitle1, .MuiTypography-subtitle2 {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+
+p, span, label, input, textarea {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.MuiPaper-root, .MuiCard-root, .neu-card, .glass-card {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.MuiGrid-item {
+  max-width: 100% !important;
+}
+
+.MuiTableContainer-root {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* System-Wide Button Sizing & Overflow Protections */
+.MuiButton-root, button, .neu-btn-primary, .neu-btn-secondary, .sys-btn-glow {
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: center;
+}
+
+.neu-btn-primary, .sys-btn-glow {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  min-height: 38px;
+}
+
+.neu-btn-secondary {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  min-height: 38px;
+}
+
+/* Accordion & Card Container Padding Protections */
+.MuiAccordionSummary-root {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+.MuiAccordionSummary-content {
+  overflow: hidden !important;
+  max-width: calc(100% - 32px) !important;
+}
+
+.MuiAccordionSummary-content .MuiTypography-root {
+  font-size: 0.825rem !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+}
+
+.MuiAccordionDetails-root {
+  padding: 0 16px 14px 16px !important;
+}
+
+.MuiContainer-root {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Universal Mobile Card & Container Padding Scale */
+@media (max-width: 600px) {
+  .MuiPaper-root, 
+  .MuiCard-root, 
+  .neu-card, 
+  .glass-card, 
+  .MuiCardContent-root {
+    padding: 14px 14px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    border-radius: 16px !important;
+  }
+
+  .MuiButton-root, button, .neu-btn-primary, .neu-btn-secondary, .sys-btn-glow {
+    font-size: 0.78rem !important;
+    padding: 6px 12px !important;
+  }
+
+  .MuiGrid-container {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+
+  .MuiGrid-item {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    max-width: 100% !important;
+  }
+
+  .MuiDialog-paper {
+    margin: 12px !important;
+    max-width: calc(100% - 24px) !important;
+    padding: 16px !important;
+  }
+}
+
+
+/* ==============================================================================
+ * 🎨 ROLE-SPECIFIC COLOR IDENTITY SYSTEM
+ * Each role gets a unique accent so users immediately know which portal they're in.
+ * ============================================================================== */
+
+/* ── ROLE BANNER BASE ─────────────────────────────────────────────────────── */
+.role-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.7);
+  margin-bottom: 2px;
+}
+
+.role-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.role-banner-name {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.role-banner-tenant {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.role-banner-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* ── 1. STUDENT — Emerald Green ───────────────────────────────────────────── */
+.role-banner--student {
+  background: linear-gradient(135deg, #e8f5e9 0%, #f0fdf4 100%);
+  box-shadow: 6px 6px 16px #c8e6c9, -6px -6px 16px #ffffff;
+}
+.role-badge--student { background: linear-gradient(135deg, #00c853, #00e676); color: #fff; }
+.neu-chip-active--student {
+  background: linear-gradient(135deg, #00c853 0%, #00e676 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 14px rgba(0, 200, 83, 0.38);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+
+/* ── 2. RECRUITER — Cobalt Blue ───────────────────────────────────────────── */
+.role-banner--recruiter {
+  background: linear-gradient(135deg, #e3f0fd 0%, #eff6ff 100%);
+  box-shadow: 6px 6px 16px #bdd7f7, -6px -6px 16px #ffffff;
+}
+.role-badge--recruiter { background: linear-gradient(135deg, #1976d2, #42a5f5); color: #fff; }
+.neu-chip-active--recruiter {
+  background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 14px rgba(25, 118, 210, 0.38);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+
+/* ── 3. TENANT ADMIN — Amber / Orange ─────────────────────────────────────── */
+.role-banner--tenant_admin {
+  background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+  box-shadow: 6px 6px 16px #f5d98c, -6px -6px 16px #ffffff;
+}
+.role-badge--tenant_admin { background: linear-gradient(135deg, #d97706, #f59e0b); color: #fff; }
+.neu-chip-active--tenant_admin {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.38);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+
+/* ── 4. DEPT COORDINATOR — Indigo ─────────────────────────────────────────── */
+.role-banner--dept_coordinator {
+  background: linear-gradient(135deg, #ede9fe 0%, #f5f3ff 100%);
+  box-shadow: 6px 6px 16px #c4b5fd, -6px -6px 16px #ffffff;
+}
+.role-badge--dept_coordinator { background: linear-gradient(135deg, #4f46e5, #818cf8); color: #fff; }
+.neu-chip-active--dept_coordinator {
+  background: linear-gradient(135deg, #4f46e5 0%, #818cf8 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.38);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+
+/* ── 5. EVALUATOR — Rose / Red ────────────────────────────────────────────── */
+.role-banner--evaluator {
+  background: linear-gradient(135deg, #ffe4e6 0%, #fff1f2 100%);
+  box-shadow: 6px 6px 16px #fecdd3, -6px -6px 16px #ffffff;
+}
+.role-badge--evaluator { background: linear-gradient(135deg, #e11d48, #fb7185); color: #fff; }
+.neu-chip-active--evaluator {
+  background: linear-gradient(135deg, #e11d48 0%, #fb7185 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.38);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+
+/* ── 6. MENTOR — Purple / Violet ──────────────────────────────────────────── */
+.role-banner--mentor {
+  background: linear-gradient(135deg, #f3e8ff 0%, #faf5ff 100%);
+  box-shadow: 6px 6px 16px #d8b4fe, -6px -6px 16px #ffffff;
+}
+.role-badge--mentor { background: linear-gradient(135deg, #7c3aed, #a855f7); color: #fff; }
+.neu-chip-active--mentor {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.38);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+
+/* ── 7. SYSADMIN — Slate Dark ─────────────────────────────────────────────── */
+.role-banner--sysadmin {
+  background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
+  box-shadow: 6px 6px 16px #b0bec5, -6px -6px 16px #ffffff;
+}
+.role-badge--sysadmin { background: linear-gradient(135deg, #1e293b, #334155); color: #e2e8f0; }
+.neu-chip-active--sysadmin {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #e2e8f0;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 14px rgba(30, 41, 59, 0.38);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+
+/* ── 8. AUDITOR — Teal / Cyan ─────────────────────────────────────────────── */
+.role-banner--auditor {
+  background: linear-gradient(135deg, #cffafe 0%, #ecfeff 100%);
+  box-shadow: 6px 6px 16px #a5f3fc, -6px -6px 16px #ffffff;
+}
+.role-badge--auditor { background: linear-gradient(135deg, #0891b2, #22d3ee); color: #fff; }
+.neu-chip-active--auditor {
+  background: linear-gradient(135deg, #0891b2 0%, #22d3ee 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 14px rgba(8, 145, 178, 0.38);
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+
+

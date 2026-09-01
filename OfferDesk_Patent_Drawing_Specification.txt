@@ -1,0 +1,284 @@
+================================================================================
+OFFERDESK (CAMPUSPLACE) PATENT DRAWING SPECIFICATION & REFERENCE NUMERAL INDEX
+================================================================================
+TITLE OF THE INVENTION:
+COMPUTER-IMPLEMENTED SYSTEM AND METHOD FOR MULTI-TENANT AUTOMATED CANDIDATE-JOB
+MATCHING, DYNAMIC PARAMETER RE-WEIGHTING, CRYPTOGRAPHIC INSTITUTIONAL
+E-SIGNATURE UNDERTAKINGS, AND AI-DRIVEN REPLACEMENT/PREPARATION WORKFLOWS
+
+DOCUMENT TYPE: PATENT FILE DRAWING SPECIFICATION (PLAIN TEXT FORMAT)
+CORRESPONDING GENERATOR CODE: file:///o:/OfferDesk/gen.py
+CORRESPONDING PRESENTATION: file:///o:/OfferDesk/OfferDesk_Patent_Figures_SmartArt%20%20-%20%20Repaired.pptx
+
+================================================================================
+1. BRIEF DESCRIPTION OF THE DRAWINGS
+================================================================================
+FIG. 1 is a block diagram illustrating the overall multi-tenant system architecture (100), including client interface layer (102), application gateway server (104), security middlewares (105, 106, 107), persistent database layer (108), machine learning microservice (110), cryptographic e-signature engine (120), and student wellness/support modules (126, 128).
+
+FIG. 2 is a detailed block diagram illustrating the NLP vector matcher module (112) and dynamic parameter weight redistribution engine (114) sub-system, including SentenceTransformer SBERT embeddings, sparse TF-IDF fallback vectorizers, non-linear threshold penalty module (116), and parameter weight renormalization matrices.
+
+FIG. 3 is a process flow diagram illustrating the candidate scoring and weight redistribution algorithmic flow executed by the system gateway (104), machine learning microservice (110), vector matcher (112), weight redistribution engine (114), and threshold penalty module (116).
+
+FIG. 4 is a workflow diagram illustrating the dual-pipeline generative AI microservice interface (118) for automated drive-specific preparation material generation, non-placement candidate career remediation pathways, and real-time chat toxicity moderation.
+
+FIG. 5 is a flow diagram illustrating the chat toxicity moderation filter (118), anonymous peer support wall (128), and quantitative student stress tracking module (126) support loop.
+
+FIG. 6 is a block diagram illustrating the multi-tenant data governance and feedback/audit loop, including double-gated security access control (105, 106, 107), isolated institutional database collections (108), user role permissions (102), and independent compliance auditor SHA-256 verification (124).
+
+FIG. 7 is a block diagram illustrating the multi-layer database and cache architecture, including tenant-isolated persistent MongoDB collections (108) and high-throughput machine learning microservice memory caches (110).
+
+FIG. 8 is a block diagram illustrating the security and defense-in-depth API gateway architecture, showing double-gated authentication middleware (105), tenant isolation middleware (106), role-based access middleware (107), and downstream protected route dispatching.
+
+FIG. 9 is a detailed block diagram illustrating the cryptographic e-signature and institutional consent sub-system, comprising multi-authority issuance routing (120), 10 institutional undertaking subject categories, real-time SHA-256 digest generator (122), expiration state machine, and independent auditor verification interface (124).
+
+================================================================================
+2. MASTER LIST OF REFERENCE NUMERALS
+================================================================================
+100 - Overall Multi-Tenant System Architecture
+102 - Client Interface Layer (Capacitor Mobile App, React Web Portal, Role Consoles)
+104 - Application Gateway Server (Node.js / Express Web Server)
+105 - Authentication Middleware (JWT Bearer Token Signature Verification)
+106 - Tenant Isolation Middleware (Header-Based x-tenant-id Data Isolation Gate)
+107 - Role-Based Access Control (RBAC) Middleware (requireRole Permission Authorization)
+108 - Persistent Database Layer (Tenant-Scoped MongoDB Atlas Storage & Audit Log Collections)
+110 - Machine Learning Microservice (Python FastAPI Microservice, Port 8000)
+112 - NLP Vector Matcher Module (Dense SBERT 384-Dim Cosine Calculator & TF-IDF Fallback)
+114 - Parameter Weight Redistribution Engine (Dynamic Active Weight Renormalization Matrix)
+116 - Threshold Penalty Module (Non-Linear GPA Eligibility Penalty Factor gamma=0.70)
+118 - Generative AI Microservice Interface (Groq Cloud LLaMA 3.3 70B LLM Services)
+120 - Cryptographic E-Signature Engine (Multi-Authority Student Consent Sub-System)
+122 - SHA-256 Digest Generator (Real-time H_sigma Digest Hash Computation)
+124 - Auditor Verification Interface (Independent Compliance SHA-256 Digest Hash Verifier)
+126 - Wellness / Stress Tracking Module (Quantitative Stress Logs & Guidance)
+128 - Anonymous Peer Support Wall Module (AI-Moderated Peer Encouragement Feed)
+
+================================================================================
+3. DETAILED PLAIN TEXT DRAWING SPECIFICATIONS
+================================================================================
+
+--------------------------------------------------------------------------------
+FIG. 1: OVERALL MULTI-TENANT SYSTEM ARCHITECTURE (100)
+--------------------------------------------------------------------------------
+System Boundary: OVERALL MULTI-TENANT SYSTEM ARCHITECTURE (100)
+
+Component Elements:
+- Block (102): CLIENT INTERFACE LAYER
+  Sub-elements: Cross-platform Capacitor Mobile Application, React Web Portal, rendering user interfaces for Student/Candidate, Corporate Recruiter, Department Coordinator, Evaluator, Mentor, System Administrator, Tenant Administrator, and System Auditor.
+- Block (104): APPLICATION GATEWAY SERVER
+  Sub-elements: Node.js / Express Web Server managing API routing, JWT authentication, and request middleware.
+  - Sub-block (105): AUTHENTICATION MIDDLEWARE (JWT bearer token signature verification)
+  - Sub-block (106): TENANT ISOLATION MIDDLEWARE (Header x-tenant-id validation)
+  - Sub-block (107): ROLE-BASED ACCESS MIDDLEWARE (Permissions checking across 8 roles)
+- Block (108): PERSISTENT DATABASE LAYER
+  Sub-elements: MongoDB Atlas multi-tenant cluster storing user credentials, job postings, candidate profiles, student undertakings, audit logs, and stress entries.
+- Block (110): MACHINE LEARNING MICROSERVICE
+  Sub-elements: Asynchronous Python FastAPI microservice listening on TCP port 8000.
+  - Sub-block (112): NLP VECTOR MATCHER MODULE (SBERT cosine similarity engine & TF-IDF fallback)
+  - Sub-block (114): PARAMETER WEIGHT REDISTRIBUTION ENGINE (Dynamic active weight re-scaling)
+  - Sub-block (116): THRESHOLD PENALTY MODULE (Non-linear GPA threshold scaling multiplier gamma=0.70)
+  - Sub-block (118): GENERATIVE AI MICROSERVICE INTERFACE (Groq Cloud LLaMA 3.3 70B inference)
+- Block (120): CRYPTOGRAPHIC E-SIGNATURE ENGINE
+  Sub-elements: Student consent state machine handling 10 undertaking categories and dual issuance authorities.
+  - Sub-block (122): SHA-256 DIGEST GENERATOR (Real-time digest hash computation H_sigma)
+  - Sub-block (124): AUDITOR VERIFICATION INTERFACE (Independent compliance audit tool)
+- Block (126): WELLNESS / STRESS TRACKING MODULE
+  Sub-elements: Quantitative stress submission logger and guidance tracker.
+- Block (128): ANONYMOUS PEER SUPPORT WALL MODULE
+  Sub-elements: AI-moderated peer wall feed enabling student encouragement interactions.
+
+Interconnections:
+- Arrow from Client Layer (102) to Application Gateway Server (104).
+- Internal arrows from Gateway Server (104) through Auth (105), Tenant Isolation (106), and RBAC (107) Middlewares.
+- Arrow from Application Gateway Server (104) to Machine Learning Microservice (110).
+- Arrow from Application Gateway Server (104) to Cryptographic E-Signature Engine (120).
+- Arrows from Microservice (110) and Gateway (104) to Persistent Database Layer (108).
+- Arrow from Cryptographic E-Signature Engine (120) to SHA-256 Digest Generator (122) and Auditor Interface (124).
+- Arrow from Cryptographic E-Signature Engine (120) to Database Layer (108).
+- Dashed arrows connecting Wellness Module (126) and Anonymous Peer Support Wall Module (128) to Gateway Server (104).
+
+--------------------------------------------------------------------------------
+FIG. 2: NLP VECTOR MATCHER & DYNAMIC PARAMETER WEIGHTING SUB-SYSTEM (112, 114)
+--------------------------------------------------------------------------------
+Sub-system Title: NLP VECTOR MATCHER & DYNAMIC PARAMETER WEIGHTING (112, 114)
+
+Component Elements:
+- Group Box (112): NLP VECTOR MATCHER MODULE
+  - Box: Job Text T_job / Candidate Text T_cand
+  - Box: Embedding Function E(T) (SentenceTransformer 'all-MiniLM-L6-v2', d=384)
+  - Box: Cosine Similarity Computation: Score_similarity = (E(T_job) . E(T_cand)) / (||E(T_job)|| * ||E(T_cand)||)
+  - Box: Output Score_similarity
+  - Exception Box (Dashed): Model Unavailable / Offline Exception
+  - Box: Sparse TF-IDF Fallback Vectorizer over unified vocabulary V
+  - Box: Output Score_TFIDF
+- Group Box (114): PARAMETER WEIGHT REDISTRIBUTION ENGINE
+  - Box: Detect Omitted Candidate Attribute (e.g., missing GPA attribute g = null)
+  - Box: Exclude Missing Weight (w_gpa) from Active Weight Set
+  - Box: Compute Normalization Constant Omega_norm = sum of active weights
+  - Box: Compute Renormalized Weights w'_i = w_i / Omega_norm
+  - Box (Bold): Output Composite Match Score (0.0 – 100.0)
+- Note Box (Dashed): Similarity sub-score from Module (112) is supplied as active input S_i to Weight Redistribution Engine (114).
+
+Interconnections:
+- Flow arrows connecting SBERT Embedding -> Cosine Similarity -> Score_similarity.
+- Conditional arrow on exception triggering Sparse TF-IDF Fallback -> Score_TFIDF.
+- Flow arrows in Module (114) connecting Omitted Metric Detection -> Exclude Weight -> Compute Omega_norm -> Renormalize w'_i -> Composite Match Score.
+
+--------------------------------------------------------------------------------
+FIG. 3: CANDIDATE SCORING & WEIGHT REDISTRIBUTION ALGORITHMIC FLOW
+--------------------------------------------------------------------------------
+Flow Title: CANDIDATE SCORING & WEIGHT REDISTRIBUTION ALGORITHMIC FLOW (100)
+
+Sequential Execution Steps:
+- Step 1 (Box): Receive Job Specification & Candidate Profiles at Gateway (104).
+- Step 2 (Box): Compute Semantic Similarity Score at NLP Vector Matcher (112).
+- Step 3 (Diamond Decision): Does Candidate Profile contain Academic GPA score?
+  - Branch YES -> Step 4A (Box): Apply Recruiter Weights; Apply Threshold Penalty if g < g_min via Penalty Module (116).
+  - Branch NO -> Step 4B (Box): Exclude missing GPA weight and Renormalize Active Weights w'_i = w_i / Omega_norm via Weight Redistribution Engine (114).
+- Step 5 (Box): Compute Composite Match Score.
+- Step 6 (Box): Sort & Output Candidate Rankings to Client Interface Layer (102).
+
+Interconnections:
+- Vertical flow arrows from Step 1 to Step 2, and Step 2 to Decision Diamond Step 3.
+- Decision arrows (YES to Step 4A, NO to Step 4B).
+- Elbow connector arrows converging Step 4A and Step 4B into Step 5.
+- Vertical arrow from Step 5 to Step 6.
+
+--------------------------------------------------------------------------------
+FIG. 4: DUAL-PIPELINE GENERATIVE AI WORKFLOW (118)
+--------------------------------------------------------------------------------
+Workflow Title: DUAL-PIPELINE GENERATIVE AI WORKFLOW (118)
+
+Top Component:
+- Box (118): GENERATIVE AI MICROSERVICE INTERFACE (Groq Cloud LLaMA 3.3 70B LLM)
+
+Pipelines:
+- Group Box: PIPELINE A – PREP MATERIAL GENERATION
+  - Box: Job Drive Publication Event
+  - Box: Prompt Construction + Groq LLM Inference Call
+  - Box: Output: Technical Topics, Interview Q&A Keys, System Design Milestones, Aptitude Focus Areas
+- Group Box: PIPELINE B – CAREER REMEDIATION
+  - Box: Candidate Unplaced After Recruitment Cycle
+  - Box: Domain Skills + Department Pathway -> Groq LLM Inference Call
+  - Box: Output: Upskilling & Alternate Career Trajectory Recommendations
+- Group Box: PIPELINE C – REAL-TIME CHAT MODERATION
+  - Box: Candidate Chat Message Received
+  - Box: Moderation Prompt -> Groq LLM Inference Call
+  - Box: Output: SAFE / WARNING / CRITICAL Severity Rating + Reasoning
+
+Interconnections:
+- Dispatch arrows connecting Microservice Interface (118) to Pipeline A, Pipeline B, and Pipeline C.
+- Internal sequential arrows within each pipeline stage.
+
+--------------------------------------------------------------------------------
+FIG. 5: CHAT TOXICITY MODERATION & WELLNESS SUPPORT LOOP (126, 128)
+--------------------------------------------------------------------------------
+Loop Title: CHAT TOXICITY MODERATION & WELLNESS SUPPORT LOOP (126, 128)
+
+Branch 1: AI Chat Moderation & Peer Wall (128)
+- Box: Student Chat / Peer Wall Post Submission (Client 102)
+- Box: API Gateway Ingestion (104)
+- Box: AI Moderation Filter (Pipeline C, 118)
+- Diamond Decision: Is Message Flagged Toxic?
+  - Branch YES -> Box: Block Post / Escalate to Moderator
+  - Branch NO -> Box: Publish to Anonymous Peer Support Wall (128)
+
+Branch 2: Quantitative Stress Tracking (126)
+- Box: Candidate Stress Entry Submission
+- Box: Wellness / Stress Tracking Module (126)
+- Box: Stored Stress Level (1-10), Trigger Category & Note in Database (108)
+
+Interconnections:
+- Vertical flow arrows connecting Submission -> Gateway (104) -> AI Moderation Filter (118) -> Flagged Decision.
+- Decision arrows (YES to Block, NO to Peer Support Wall 128).
+- Sequential vertical arrows for Stress Entry Submission -> Wellness Module (126) -> Storage.
+
+--------------------------------------------------------------------------------
+FIG. 6: MULTI-TENANT DATA GOVERNANCE & AUDIT LOOP
+--------------------------------------------------------------------------------
+Loop Title: MULTI-TENANT DATA GOVERNANCE & AUDIT LOOP
+
+Component Elements:
+- Box (102): CLIENT INTERFACE LAYER (Consoles for 8 System User Roles)
+- Group Box (104): APPLICATION GATEWAY SERVER
+  - Sub-box (105): AUTHENTICATION MIDDLEWARE
+  - Sub-box (106): TENANT ISOLATION MIDDLEWARE
+  - Sub-box (107): ROLE-BASED ACCESS CONTROL MIDDLEWARE
+- Box (108): TENANT-SCOPED DATABASE COLLECTIONS (MongoDB Atlas)
+- Box: IMMUTABLE AUDIT LOG (Append-only AuditLog.js collection)
+- Box (124): EXTERNAL COMPLIANCE AUDITOR (AuditorSha256Verifier.js)
+
+Interconnections:
+- Horizontal flow arrow from Client Layer (102) to Gateway Server (104).
+- Sequential internal arrows through Auth MW (105) -> Tenant Isolation MW (106) -> Role-Based MW (107).
+- Arrow from Gateway (104) to Tenant-Scoped Collections (108).
+- Arrow from Database (108) writing append-only events to Immutable Audit Log.
+- Verification arrow from Auditor Verification Interface (124) independently hashing and validating records against Immutable Audit Log.
+
+--------------------------------------------------------------------------------
+FIG. 7: MULTI-LAYER DATABASE & CACHE ARCHITECTURE (108)
+--------------------------------------------------------------------------------
+Architecture Title: MULTI-LAYER DATABASE & CACHE ARCHITECTURE (108)
+
+Component Elements:
+- Group Box (108): PERSISTENT DATABASE LAYER (MongoDB Atlas)
+  - Box: Tenant / Institution Records
+  - Box: Candidate Profile Records
+  - Box: Job Posting Records
+  - Box: Consent / Undertaking Records
+  - Box: Immutable Audit Log Records
+  - Box: Compound Tenant + Record ID Indexing ({ tenantId: 1, studentId: 1 })
+  - Box: Mandatory Query Scoping Enforcement on Every Read/Write
+- Group Box (110): MACHINE LEARNING MICROSERVICE LOCAL CACHE
+  - Box: Frequently-Accessed Job Posting Embedding Cache
+  - Box: Reduces Repeated SentenceTransformer Vector Computation Load
+
+Interconnections:
+- Internal indexing enforcement arrows within Database Layer (108).
+- Connector arrow linking Persistent Database Layer (108) and Microservice Cache (110).
+
+--------------------------------------------------------------------------------
+FIG. 8: SECURITY & DEFENSE-IN-DEPTH ARCHITECTURE (105, 106, 107)
+--------------------------------------------------------------------------------
+Architecture Title: SECURITY & DEFENSE-IN-DEPTH ARCHITECTURE (105, 106, 107)
+
+Component Elements:
+- Box (102): CLIENT HTTPS REQUEST (Capacitor App / Web UI)
+- Box (105): AUTHENTICATION MIDDLEWARE (JWT Bearer Token Signature Verification)
+- Box (106): TENANT ISOLATION MIDDLEWARE (x-tenant-id Header Check)
+- Box (107): ROLE-BASED ACCESS MIDDLEWARE (requireRole Permission Check)
+- Box (104): PROTECTED ROUTE HANDLER (Secure Downstream Execution)
+- Failure Rejection Boxes (Dashed):
+  - 401 Unauthorised Rejection
+  - 403 Cross-Tenant Forbidden Rejection
+  - 403 Role Forbidden Rejection
+
+Interconnections:
+- Horizontal sequential success flow arrows: Client (102) -> Auth (105) -> Tenant Isolation (106) -> RBAC (107) -> Protected Route Handler (104).
+- Vertical dashed failure arrows: Auth (105) -> 401 Rejection, Tenant Isolation (106) -> 403 Cross-Tenant Rejection, RBAC (107) -> 403 Role Rejection.
+
+--------------------------------------------------------------------------------
+FIG. 9: CRYPTOGRAPHIC E-SIGNATURE & INSTITUTIONAL CONSENT (120, 122, 124)
+--------------------------------------------------------------------------------
+Sub-system Title: CRYPTOGRAPHIC E-SIGNATURE & INSTITUTIONAL CONSENT SUB-SYSTEM (120, 122, 124)
+
+Component Elements:
+- Group Box (120): E-SIGNATURE ENGINE
+  - Box: Multi-Authority Issuance Routing (CAMPUS_PLACEMENT_OFFICER vs DEPARTMENT_HOD)
+  - Box: 10 Undertaking Subject Categories (Placement, Anti-Ragging, Condonation, Gap Year, Fee Installments, Scholarship Cap, Indemnity, Plagiarism, Medical, Custom)
+  - Box: Student Digital Signature Payload sigma_student
+  - Box (Dashed): Parent Co-Signature Payload sigma_parent (if parentConsentRequired=true)
+- Box (122): SHA-256 DIGEST GENERATOR
+  - Calculates H_sigma = SHA256( consentId + "_" + studentId + "_" + digitalSignature + "_" + timestamp )
+- Box: EXPIRATION STATE MACHINE (PENDING -> EXPIRED_OVERDUE after 48 hours)
+- Box: IMMUTABLE AUDIT LOG / TAMPER-EVIDENT RECORD
+- Box (124): AUDITOR VERIFICATION INTERFACE (AuditorSha256Verifier.js)
+
+Interconnections:
+- Routing arrows from E-Signature Engine (120) to Student Signature and Parent Co-Signature boxes.
+- Flow arrows connecting Signatures to SHA-256 Digest Generator (122).
+- Arrow from Digest Generator (122) to Expiration State Machine and Immutable Audit Log.
+- Verification arrow connecting Auditor Interface (124) to Immutable Audit Log.
+
+================================================================================
+END OF PATENT FILE DRAWING SPECIFICATION
+================================================================================
