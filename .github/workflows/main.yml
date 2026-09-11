@@ -37,18 +37,17 @@ jobs:
           mkdir -p ~/.gradle
           echo "android.useAndroidX=true" >> ~/.gradle/gradle.properties
           echo "android.enableJetifier=true" >> ~/.gradle/gradle.properties
-          
-          # Force multi-dex support into the app's build rules
           sed -i '/defaultConfig {/a \        multiDexEnabled true' app/android/app/build.gradle
 
-      - name: Create Auto-Signing Key
+      - name: Create Auto-Signing Key in Fixed Location
         run: |
-          keytool -genkey -v -keystore app/android/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias -storepass mypassword -keypass mypassword -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
+          # Generating the signature inside a permanent, root runner folder
+          keytool -genkey -v -keystore /home/runner/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias -storepass mypassword -keypass mypassword -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
 
-      - name: Build Signed AAB
+      - name: Build Signed AAB with Explicit Path
         run: |
           cd app/android
-          gradle bundleRelease -Pandroid.injected.signing.store.file=../release-key.jks -Pandroid.injected.signing.store.password=mypassword -Pandroid.injected.signing.key.alias=my-alias -Pandroid.injected.signing.key.password=mypassword
+          gradle bundleRelease -Pandroid.injected.signing.store.file=/home/runner/release-key.jks -Pandroid.injected.signing.store.password=mypassword -Pandroid.injected.signing.key.alias=my-alias -Pandroid.injected.signing.key.password=mypassword
 
       - name: Upload Bundle
         uses: actions/upload-artifact@v4
