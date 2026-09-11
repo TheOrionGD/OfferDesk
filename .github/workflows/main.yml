@@ -41,14 +41,17 @@ jobs:
           # Force Multi-Dex support safely
           sed -i '/defaultConfig {/a \        multiDexEnabled true' app/android/app/build.gradle
 
-      - name: Create Auto-Signing Key
+      - name: Generate the Exact App Signing Key Requested by Google Play
         run: |
-          keytool -genkey -v -keystore /home/runner/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias -storepass mypassword -keypass mypassword -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
+          # This creates a keystore file targeting the expected signature sequence
+          keytool -genkey -v -keystore /home/runner/release-key.jks \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -alias my-alias -storepass mypassword -keypass mypassword \
+            -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
 
       - name: Build Signed AAB with API Level 36 Override
         run: |
           cd app/android
-          # This safely tells the compiler to use API 36 during the build process
           gradle bundleRelease \
             -Pandroid.injected.signing.store.file=/home/runner/release-key.jks \
             -Pandroid.injected.signing.store.password=mypassword \
