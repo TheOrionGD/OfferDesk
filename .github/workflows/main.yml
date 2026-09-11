@@ -32,16 +32,20 @@ jobs:
         with:
           gradle-version: '8.2'
 
-      - name: Enable Multi-Dex and Configure Build Properties
+      - name: Fix Package Name and Build Settings
         run: |
           mkdir -p ~/.gradle
           echo "android.useAndroidX=true" >> ~/.gradle/gradle.properties
           echo "android.enableJetifier=true" >> ~/.gradle/gradle.properties
+          
+          # 1. Enable Multi-Dex support
           sed -i '/defaultConfig {/a \        multiDexEnabled true' app/android/app/build.gradle
-
+          
+          # 2. Force the correct application ID required by Google Play Console
+          sed -i 's/applicationId "[^"]*"/applicationId "com.spryflora.app"/g' app/android/app/build.gradle
+          
       - name: Create Auto-Signing Key in Fixed Location
         run: |
-          # Generating the signature inside a permanent, root runner folder
           keytool -genkey -v -keystore /home/runner/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias -storepass mypassword -keypass mypassword -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
 
       - name: Build Signed AAB with Explicit Path
