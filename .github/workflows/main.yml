@@ -32,6 +32,15 @@ jobs:
         with:
           gradle-version: '8.2'
 
+      - name: Enable Multi-Dex and Configure Build Properties
+        run: |
+          mkdir -p ~/.gradle
+          echo "android.useAndroidX=true" >> ~/.gradle/gradle.properties
+          echo "android.enableJetifier=true" >> ~/.gradle/gradle.properties
+          
+          # Force multi-dex support into the app's build rules
+          sed -i '/defaultConfig {/a \        multiDexEnabled true' app/android/app/build.gradle
+
       - name: Create Auto-Signing Key
         run: |
           keytool -genkey -v -keystore app/android/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias -storepass mypassword -keypass mypassword -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
