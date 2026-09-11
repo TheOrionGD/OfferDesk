@@ -32,10 +32,14 @@ jobs:
         with:
           gradle-version: '8.2'
 
-      - name: Build with Gradle
+      - name: Create Auto-Signing Key
+        run: |
+          keytool -genkey -v -keystore app/android/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias -storepass mypassword -keypass mypassword -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
+
+      - name: Build Signed AAB
         run: |
           cd app/android
-          gradle bundleRelease
+          gradle bundleRelease -Pandroid.injected.signing.store.file=../release-key.jks -Pandroid.injected.signing.store.password=mypassword -Pandroid.injected.signing.key.alias=my-alias -Pandroid.injected.signing.key.password=mypassword
 
       - name: Upload Bundle
         uses: actions/upload-artifact@v4
