@@ -43,25 +43,26 @@ jobs:
           mkdir -p ~/.gradle
           echo "android.useAndroidX=true" >> ~/.gradle/gradle.properties
           echo "android.enableJetifier=true" >> ~/.gradle/gradle.properties
+          
+          # Force Multi-Dex support safely
           sed -i '/defaultConfig {/a \        multiDexEnabled true' app/android/app/build.gradle
+          
+          # Force exact applicationId rule
           sed -i 's/applicationId "[^"]*"/applicationId "com.spryflora.app"/g' app/android/app/build.gradle
 
-      - name: Extract and Generate Matching Certificate
+      - name: Create Auto-Signing Key in Fixed Location
         run: |
-          # Creates a customized keystore sequence built to target your requested console container profile
-          keytool -genkey -v -keystore /home/runner/release-key.jks \
-            -keyalg RSA -keysize 2048 -validity 10000 \
-            -alias sprykey -storepass sprypass123 -keypass sprypass123 \
-            -dname "CN=SpryFlora, OU=Production, O=SpryFlora, L=Chennai, S=TamilNadu, C=IN"
+          keytool -genkey -v -keystore /home/runner/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias -storepass mypassword -keypass mypassword -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
 
-      - name: Build Signed AAB with Target API 36
+      - name: Build Signed AAB with API Level 36 Override
         run: |
           cd app/android
+          # This forces the entire project to build against Android 16 (API 36) variables
           gradle bundleRelease \
             -Pandroid.injected.signing.store.file=/home/runner/release-key.jks \
-            -Pandroid.injected.signing.store.password=sprypass123 \
-            -Pandroid.injected.signing.key.alias=sprykey \
-            -Pandroid.injected.signing.key.password=sprypass123 \
+            -Pandroid.injected.signing.store.password=mypassword \
+            -Pandroid.injected.signing.key.alias=my-alias \
+            -Pandroid.injected.signing.key.password=mypassword \
             -Pandroid.injected.compileSdkVersion=36 \
             -Pandroid.injected.targetSdkVersion=36
 
