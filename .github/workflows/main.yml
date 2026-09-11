@@ -9,6 +9,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Web Dependencies and Sync
+        run: |
+          cd app
+          npm install
+          npx cap sync
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -18,12 +29,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Find and Build with Gradle
+      - name: Build with Gradle
         run: |
-          # This automatically finds the folder containing the project files
-          GRADLE_DIR=$(find . -name "build.gradle" -o -name "build.gradle.kts" | head -n 1 | xargs dirname)
-          echo "Found project folder at: $GRADLE_DIR"
-          cd "$GRADLE_DIR"
+          cd app/android
           gradle bundleRelease
 
       - name: Upload Bundle
