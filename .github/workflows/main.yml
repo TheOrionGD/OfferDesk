@@ -32,30 +32,30 @@ jobs:
         with:
           gradle-version: '8.2'
 
-      - name: Fix Package Name, Target API, and Build Settings
+      - name: Configure Multi-Dex and Gradle Properties
         run: |
           mkdir -p ~/.gradle
           echo "android.useAndroidX=true" >> ~/.gradle/gradle.properties
           echo "android.enableJetifier=true" >> ~/.gradle/gradle.properties
           
-          # 1. Enable Multi-Dex support
+          # Force Multi-Dex support safely
           sed -i '/defaultConfig {/a \        multiDexEnabled true' app/android/app/build.gradle
-          
-          # 2. Force the correct application ID required by Google Play Console
-          sed -i 's/applicationId "[^"]*"/applicationId "com.spryflora.app"/g' app/android/app/build.gradle
-          
-          # 3. Upgrade Target API Level to 36 as required by Google Play
-          sed -i 's/targetSdkVersion [0-9]*/targetSdkVersion 36/g' app/android/app/build.gradle
-          sed -i 's/compileSdkVersion [0-9]*/compileSdkVersion 36/g' app/android/app/build.gradle
-          
-      - name: Create Auto-Signing Key in Fixed Location
+
+      - name: Create Auto-Signing Key
         run: |
           keytool -genkey -v -keystore /home/runner/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias -storepass mypassword -keypass mypassword -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
 
-      - name: Build Signed AAB with Explicit Path
+      - name: Build Signed AAB with API Level 36 Override
         run: |
           cd app/android
-          gradle bundleRelease -Pandroid.injected.signing.store.file=/home/runner/release-key.jks -Pandroid.injected.signing.store.password=mypassword -Pandroid.injected.signing.key.alias=my-alias -Pandroid.injected.signing.key.password=mypassword
+          # This safely tells the compiler to use API 36 during the build process
+          gradle bundleRelease \
+            -Pandroid.injected.signing.store.file=/home/runner/release-key.jks \
+            -Pandroid.injected.signing.store.password=mypassword \
+            -Pandroid.injected.signing.key.alias=my-alias \
+            -Pandroid.injected.signing.key.password=mypassword \
+            -Pandroid.injected.compileSdkVersion=36 \
+            -Pandroid.injected.targetSdkVersion=36
 
       - name: Upload Bundle
         uses: actions/upload-artifact@v4
