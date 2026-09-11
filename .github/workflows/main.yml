@@ -32,7 +32,7 @@ jobs:
         with:
           gradle-version: '8.2'
 
-      - name: Fix Package Name and Build Settings
+      - name: Fix Package Name, Target API, and Build Settings
         run: |
           mkdir -p ~/.gradle
           echo "android.useAndroidX=true" >> ~/.gradle/gradle.properties
@@ -43,6 +43,10 @@ jobs:
           
           # 2. Force the correct application ID required by Google Play Console
           sed -i 's/applicationId "[^"]*"/applicationId "com.spryflora.app"/g' app/android/app/build.gradle
+          
+          # 3. Upgrade Target API Level to 36 as required by Google Play
+          sed -i 's/targetSdkVersion [0-9]*/targetSdkVersion 36/g' app/android/app/build.gradle
+          sed -i 's/compileSdkVersion [0-9]*/compileSdkVersion 36/g' app/android/app/build.gradle
           
       - name: Create Auto-Signing Key in Fixed Location
         run: |
