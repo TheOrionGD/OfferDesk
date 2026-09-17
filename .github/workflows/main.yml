@@ -1,0 +1,74 @@
+name: Build AAB Bundle
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Force Fix Package Name in Configurations
+        run: |
+          cd app
+          find . -type f \( -name "capacitor.config.json" -o -name "AndroidManifest.xml" -o -name "build.gradle" \) -exec sed -i 's/io.ionic.starter/com.spryflora.app/g' {} +
+          find . -type f \( -name "capacitor.config.json" -o -name "AndroidManifest.xml" -o -name "build.gradle" \) -exec sed -i 's/com.example.app/com.spryflora.app/g' {} +
+
+      - name: Install Web Dependencies and Build Assets
+        run: |
+          cd app
+          npm install
+          npm run build --if-present
+          npx cap sync
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Legacy Gradle 8.2
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.2'
+
+      - name: Configure Multi-Dex and System Application ID
+        run: |
+          mkdir -p ~/.gradle
+          echo "android.useAndroidX=true" >> ~/.gradle/gradle.properties
+          echo "android.enableJetifier=true" >> ~/.gradle/gradle.properties
+          
+          # Force Multi-Dex support safely
+          sed -i '/defaultConfig {/a \        multiDexEnabled true' app/android/app/build.gradle
+          
+          # Force exact applicationId rule
+          sed -i 's/applicationId "[^"]*"/applicationId "com.spryflora.app"/g' app/android/app/build.gradle
+
+      - name: Create Auto-Signing Key in Fixed Location
+        run: |
+          keytool -genkey -v -keystore /home/runner/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias -storepass mypassword -keypass mypassword -dname "CN=App, OU=Dev, O=Company, L=City, S=State, C=US"
+
+      - name: Build Signed AAB with API Level 36 Override
+        run: |
+          cd app/android
+          # This forces the entire project to build against Android 16 (API 36) variables
+          gradle bundleRelease \
+            -Pandroid.injected.signing.store.file=/home/runner/release-key.jks \
+            -Pandroid.injected.signing.store.password=mypassword \
+            -Pandroid.injected.signing.key.alias=my-alias \
+            -Pandroid.injected.signing.key.password=mypassword \
+            -Pandroid.injected.compileSdkVersion=36 \
+            -Pandroid.injected.targetSdkVersion=36
+
+      - name: Upload Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-app-bundle
+          path: |
+            **/build/outputs/bundle/release/*.aab
