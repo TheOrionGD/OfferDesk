@@ -97,9 +97,10 @@ projects:
       envVars:
       - key: ML_HOST
         value: 0.0.0.0
-      - key: SBERT_MODEL_NAME
-        value: all-MiniLM-L6-v2
+      - key: ENABLE_SBERT
+        value: "false"
       - key: GROQ_MODEL
         value: qwen/qwen3.8-27b
       - key: GROQ_API_KEY
         sync: false
+

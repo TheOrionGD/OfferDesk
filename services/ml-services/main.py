@@ -71,6 +71,7 @@ class PrepGeneratorRequest(BaseModel):
     required_skills: List[str]
 
 @app.get("/")
+@app.get("/health")
 def read_root():
     return {
         "service": "OfferDesk AI ATS & Groq LLM Engine",
@@ -79,6 +80,7 @@ def read_root():
         "groq_configured": groq_llm.is_configured(),
         "groq_model": groq_llm.model
     }
+
 
 @app.post("/api/ats/rank-candidates")
 def rank_candidates(payload: ScoreRequest):

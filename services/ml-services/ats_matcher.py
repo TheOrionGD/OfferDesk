@@ -1,11 +1,13 @@
 import math
+import os
 import re
 from typing import List, Dict, Any
 
 class NLPVectorMatcher:
     """
     NLP Cosine Vector Similarity & Weighted Ranking Engine for ATS Candidates.
-    Combines BERT/SBERT semantic sentence embeddings with recruiter weight metrics:
+    Combines BERT/SBERT semantic sentence embeddings (if enabled) or lightweight
+    Scikit-Learn TF-IDF cosine vector matching for low-memory production deployments (e.g. Render Free Tier).
     - Core Skills % (e.g. 40%)
     - Project Experience % (e.g. 30%)
     - Academic GPA % (e.g. 20%)
@@ -14,14 +16,17 @@ class NLPVectorMatcher:
 
     def __init__(self):
         self.use_sbert = False
-        try:
-            import os
-            from sentence_transformers import SentenceTransformer
-            model_name = os.getenv('SBERT_MODEL_NAME', 'all-MiniLM-L6-v2')
-            self.model = SentenceTransformer(model_name)
-            self.use_sbert = True
-        except Exception:
-            self.model = None
+        self.model = None
+        
+        # Only load SBERT if explicitly requested in environment (requires >1GB RAM)
+        if os.getenv("ENABLE_SBERT", "false").lower() in ("true", "1"):
+            try:
+                from sentence_transformers import SentenceTransformer
+                model_name = os.getenv('SBERT_MODEL_NAME', 'all-MiniLM-L6-v2')
+                self.model = SentenceTransformer(model_name)
+                self.use_sbert = True
+            except Exception:
+                self.model = None
 
     def tokenize(self, text: str) -> List[str]:
         text = text.lower()
@@ -29,22 +34,34 @@ class NLPVectorMatcher:
         return words
 
     def tfidf_cosine_similarity(self, text1: str, text2: str) -> float:
-        words1 = self.tokenize(text1)
-        words2 = self.tokenize(text2)
-        if not words1 or not words2:
+        if not text1 or not text2:
             return 0.0
-        
-        vocab = set(words1 + words2)
-        v1 = [words1.count(w) for w in vocab]
-        v2 = [words2.count(w) for w in vocab]
-        
-        dot_product = sum(a * b for a, b in zip(v1, v2))
-        mag1 = math.sqrt(sum(a * a for a in v1))
-        mag2 = math.sqrt(sum(b * b for b in v2))
-        
-        if mag1 == 0 or mag2 == 0:
-            return 0.0
-        return dot_product / (mag1 * mag2)
+
+        try:
+            from sklearn.feature_extraction.text import TfidfVectorizer
+            from sklearn.metrics.pairwise import cosine_similarity
+
+            vectorizer = TfidfVectorizer(ngram_range=(1, 2), stop_words='english')
+            tfidf_matrix = vectorizer.fit_transform([text1, text2])
+            sim = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])[0][0]
+            return float(sim)
+        except Exception:
+            words1 = self.tokenize(text1)
+            words2 = self.tokenize(text2)
+            if not words1 or not words2:
+                return 0.0
+            
+            vocab = set(words1 + words2)
+            v1 = [words1.count(w) for w in vocab]
+            v2 = [words2.count(w) for w in vocab]
+            
+            dot_product = sum(a * b for a, b in zip(v1, v2))
+            mag1 = math.sqrt(sum(a * a for a in v1))
+            mag2 = math.sqrt(sum(b * b for b in v2))
+            
+            if mag1 == 0 or mag2 == 0:
+                return 0.0
+            return dot_product / (mag1 * mag2)
 
     def calculate_sbert_similarity(self, text1: str, text2: str) -> float:
         if not self.use_sbert or not self.model:
@@ -53,13 +70,15 @@ class NLPVectorMatcher:
         embeddings = self.model.encode([text1, text2])
         emb1, emb2 = embeddings[0], embeddings[1]
         
-        dot = sum(a * b for a, b in zip(emb1, emb2))
+        dot_product = sum(a * b for a, b in zip(emb1, emb2))
         m1 = math.sqrt(sum(a * a for a in emb1))
         m2 = math.sqrt(sum(b * b for b in emb2))
         
         if m1 == 0 or m2 == 0:
             return 0.0
-        return float(dot / (m1 * m2))
+        return float(dot_product / (m1 * m2))
+
+
 
     def evaluate_candidate(self, candidate: Dict[str, Any], job_spec: Dict[str, Any], weights: Dict[str, float]) -> Dict[str, Any]:
         """
