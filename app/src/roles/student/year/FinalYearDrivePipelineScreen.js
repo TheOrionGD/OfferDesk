@@ -4,7 +4,7 @@ import PlacementAnxietyIndex from '../wellness/PlacementAnxietyIndex';
 import axios from 'axios';
 import { useTenant } from '../../../context/TenantContext';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
 function FinalYearDrivePipelineScreen() {
   const { currentTenant } = useTenant();

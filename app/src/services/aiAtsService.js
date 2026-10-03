@@ -36,7 +36,7 @@ export const scoreAndRankCandidates = async (jobSpec, candidates, weights = {}) 
     }
   };
 
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
   try {
     const res = await axios.post(`${API_BASE_URL}/api/ats/rank`, payload);
     if (res.data && res.data.leaderboard) {

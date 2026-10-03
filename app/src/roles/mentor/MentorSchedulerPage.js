@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { useTenant } from "../../context/TenantContext";
 import { FaCheckCircle } from "react-icons/fa";
 

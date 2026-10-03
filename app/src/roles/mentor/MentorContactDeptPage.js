@@ -24,7 +24,7 @@ export function MentorContactDeptPage() {
   const [contactModal, setContactModal] = useState(null);
   const [customMsg, setCustomMsg] = useState("");
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   // Fetch only real registered mentors — no static fallback data
   const fetchMentors = useCallback(async () => {

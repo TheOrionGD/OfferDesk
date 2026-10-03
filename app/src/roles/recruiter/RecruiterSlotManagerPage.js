@@ -11,7 +11,7 @@ export function RecruiterSlotManagerPage() {
   const [newSlot, setNewSlot] = useState({ round: '', date: '', time: '10:00 AM', venue: 'Main Auditorium / Online' });
   const [showModal, setShowModal] = useState(false);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchSlots = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

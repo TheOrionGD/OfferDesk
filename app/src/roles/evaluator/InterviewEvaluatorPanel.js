@@ -27,7 +27,7 @@ export function InterviewEvaluatorPanel() {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchCandidates = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

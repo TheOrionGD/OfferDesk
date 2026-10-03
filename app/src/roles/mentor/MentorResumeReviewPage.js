@@ -12,7 +12,7 @@ export function MentorResumeReviewPage() {
   const [editingId, setEditingId] = useState(null);
   const [savedId, setSavedId] = useState(null);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchResumeRequests = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

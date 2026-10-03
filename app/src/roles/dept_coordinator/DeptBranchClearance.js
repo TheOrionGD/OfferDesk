@@ -8,7 +8,7 @@ export function DeptBranchClearance() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchStudents = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

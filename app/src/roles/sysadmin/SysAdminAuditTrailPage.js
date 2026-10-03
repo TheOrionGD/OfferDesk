@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { FaSync, FaExclamationTriangle } from "react-icons/fa";
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
 export function SysAdminAuditTrailPage() {
   const [auditLogs, setAuditLogs] = useState([]);

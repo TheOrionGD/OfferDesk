@@ -119,7 +119,7 @@ export function DriveSpaceChat() {
     if (!activeSpace || !activeSpace.jobId) return;
     setAiLoading(true);
     try {
-      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
       const res = await fetch(`${API_URL}/api/ai/prep-generator`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaSave, FaCheckCircle } from "react-icons/fa";
 const AI_SERVICE_URL = process.env.REACT_APP_AI_SERVICE_URL || `${AI_SERVICE_URL}`;
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
 export function SysAdminSystemConfigPage() {
   const [config, setConfig] = useState({

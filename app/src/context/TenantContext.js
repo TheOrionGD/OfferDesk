@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const TenantContext = createContext();
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
 export const TenantProvider = ({ children }) => {
   const [tenants, setTenants] = useState([]);

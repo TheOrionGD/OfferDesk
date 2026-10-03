@@ -11,7 +11,7 @@ export function DeptCoordinatorSkillAuditPage() {
   const [newSkill, setNewSkill] = useState({ name: '', elective: 'CS301', requiredLevel: 'Advanced', proficiency: '85%' });
   const [showModal, setShowModal] = useState(false);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchSkills = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

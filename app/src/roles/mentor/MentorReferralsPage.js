@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useTenant } from "../../context/TenantContext";
 import { FaPlus, FaFolderOpen } from "react-icons/fa";
 import axios from "axios";
@@ -11,7 +11,7 @@ export function MentorReferralsPage() {
   const [form, setForm] = useState({ studentName: '', regNo: '', company: 'Google Cloud', role: 'Software Engineer' });
   const [showModal, setShowModal] = useState(false);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchReferrals = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

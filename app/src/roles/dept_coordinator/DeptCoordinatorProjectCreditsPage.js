@@ -11,7 +11,7 @@ export function DeptCoordinatorProjectCreditsPage() {
   const [newProject, setNewProject] = useState({ title: '', student: '', guide: 'Faculty Guide' });
   const [showModal, setShowModal] = useState(false);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchProjects = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

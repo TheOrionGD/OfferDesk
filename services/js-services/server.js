@@ -40,7 +40,7 @@ if (!process.env.MONGODB_URI) {
   process.exit(1);
 }
 const MONGODB_URI = process.env.MONGODB_URI;
-const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000';
+const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'https://offerdesk-ml-backend.onrender.com';
 
 // Drop stale global (non-compound) unique indexes that were replaced with compound equivalents.
 // This runs on every startup and is safe to ignore if the indexes don't exist.
@@ -990,7 +990,7 @@ app.post('/api/ai/prep-generator', authenticate, requireTenantId, async (req, re
 
     // Call Python FastAPI microservice
     try {
-      const aiFastApiUrl = `${process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000'}/api/ai/prep-materials`;
+      const aiFastApiUrl = `${process.env.AI_SERVICE_URL || 'https://offerdesk-ml-backend.onrender.com'}/api/ai/prep-materials`;
       const aiRes = await axios.post(aiFastApiUrl, {
         job_id: job._id.toString(),
         company: job.company,
@@ -1039,7 +1039,7 @@ app.post('/api/ai/non-placement-recommendations', authenticate, requireTenantId,
   try {
     const { domain, skills, hod_pathway } = req.body;
     try {
-      const aiFastApiUrl = `${process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000'}/api/ai/non-placement-recommendations`;
+      const aiFastApiUrl = `${process.env.AI_SERVICE_URL || 'https://offerdesk-ml-backend.onrender.com'}/api/ai/non-placement-recommendations`;
       const aiRes = await axios.post(aiFastApiUrl, {
         user_id: req.user.id,
         domain,
@@ -1255,7 +1255,7 @@ app.post('/api/ats/rank', authenticate, requireTenantId, requireRole('recruiter'
       candidates: verifiedCandidates
     };
 
-    const aiFastApiUrl = `${process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000'}/api/ats/rank-candidates`;
+    const aiFastApiUrl = `${process.env.AI_SERVICE_URL || 'https://offerdesk-ml-backend.onrender.com'}/api/ats/rank-candidates`;
     const response = await axios.post(aiFastApiUrl, scopedPayload);
     res.json(response.data);
   } catch (err) {
@@ -1626,7 +1626,7 @@ app.get('/api/users/:userId/resume', authenticate, requireTenantId, async (req, 
 // Express Proxy for Python FastAPI ATS Candidate Ranking Engine on Port 8000
 app.post('/api/ats/rank', authenticate, requireTenantId, async (req, res) => {
   try {
-    const aiFastApiUrl = `${process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000'}/api/ats/rank-candidates`;
+    const aiFastApiUrl = `${process.env.AI_SERVICE_URL || 'https://offerdesk-ml-backend.onrender.com'}/api/ats/rank-candidates`;
     const aiRes = await axios.post(aiFastApiUrl, req.body);
     res.json(aiRes.data);
   } catch (aiErr) {

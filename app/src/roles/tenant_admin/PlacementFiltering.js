@@ -4,7 +4,7 @@ import { FilterList, FileDownload, CheckCircle } from '@mui/icons-material';
 import { useTenant } from '../../context/TenantContext';
 import { greenPalette } from '../../theme';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
 export function PlacementFiltering() {
   const { currentTenant } = useTenant();

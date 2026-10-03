@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaSync, FaCircle } from "react-icons/fa";
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
 export function SysAdminRestApiLogsPage() {
   const [logs, setLogs] = useState([]);

@@ -16,7 +16,7 @@ export function PersonalizedAiChat() {
   const [savedHistory, setSavedHistory] = useState([]);
   const [notification, setNotification] = useState(null);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   // Fetch saved chat history for THIS specific user & tenant
   const fetchChatHistory = useCallback(async () => {

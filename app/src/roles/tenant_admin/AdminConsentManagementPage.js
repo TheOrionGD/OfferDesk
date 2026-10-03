@@ -7,7 +7,7 @@ import {
   FaRupeeSign, FaBuilding, FaUserTie
 } from 'react-icons/fa';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
 const PLACEMENT_OFFICER_SUBJECTS = [
   'PLACEMENT_POLICY_UNDERTAKING',

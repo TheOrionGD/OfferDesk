@@ -19,7 +19,7 @@ export function NoticeBoard() {
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('URGENT');
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchNotices = useCallback(async () => {
     setLoading(true);

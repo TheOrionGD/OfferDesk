@@ -13,7 +13,7 @@ export function TenantAdminCalendarPage() {
   const [newEvent, setNewEvent] = useState({ title: '', date: '', venue: 'Main Auditorium', company: '' });
   const [showModal, setShowModal] = useState(false);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchEvents = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

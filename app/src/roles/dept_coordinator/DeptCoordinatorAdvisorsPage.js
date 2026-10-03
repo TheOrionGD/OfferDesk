@@ -11,7 +11,7 @@ export function DeptCoordinatorAdvisorsPage() {
   const [newAdvisor, setNewAdvisor] = useState({ name: '', batch: '2023-2027 Section A' });
   const [showModal, setShowModal] = useState(false);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchAdvisors = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

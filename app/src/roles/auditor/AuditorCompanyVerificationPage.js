@@ -3,7 +3,7 @@ import { useTenant } from "../../context/TenantContext";
 import { FaSync, FaExclamationTriangle, FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
 export function AuditorCompanyVerificationPage() {
   const { currentTenant, tenantLoading } = useTenant();

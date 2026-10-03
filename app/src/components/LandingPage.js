@@ -60,7 +60,7 @@ export function LandingPage({ isTenantModalOpen, onTenantModalClose }) {
 
   const [tenantReqForm, setTenantReqForm] = useState(initialTenantForm);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   // Trigger modal from URL param or props
   useEffect(() => {

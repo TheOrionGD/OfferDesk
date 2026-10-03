@@ -10,7 +10,7 @@ export function RecruiterCandidateSearch() {
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchCandidates = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

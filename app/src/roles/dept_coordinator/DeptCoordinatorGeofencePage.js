@@ -28,7 +28,7 @@ export function DeptCoordinatorGeofencePage({ students = [] }) {
   const fetchDriveSpaces = useCallback(async () => {
     if (!currentTenant?.tenantId) return;
     try {
-      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
       const res = await fetch(`${API_URL}/api/spaces?tenantId=${currentTenant.tenantId}&userId=${user?._id || user?.id}&role=${user?.role}`);
       const data = await res.json();
       if (data.success && Array.isArray(data.spaces)) {

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import MentorSessionBooking from './MentorSessionBooking';
 
 export function MentorSessionBookingPage() {

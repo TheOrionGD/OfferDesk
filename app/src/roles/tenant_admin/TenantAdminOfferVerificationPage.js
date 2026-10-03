@@ -25,7 +25,7 @@ export function TenantAdminOfferVerificationPage() {
     policyTerms: 'Institutional Placement Policy: Binding agreement to accept offer letter within 48-hour deadline.'
   });
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   // Fetch HOD Created Spaces
   const fetchHODSpaces = useCallback(async () => {

@@ -8,7 +8,7 @@ import {
   FaUserGraduate, FaCalendarAlt, FaHistory, FaQrcode, FaPenFancy
 } from 'react-icons/fa';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
 const SUBJECT_MAP = {
   PLACEMENT_POLICY_UNDERTAKING: { label: 'T&P Placement Policy & Rules', color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' },

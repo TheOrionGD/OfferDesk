@@ -29,7 +29,7 @@ export function TenantAdminDashboard() {
     title: '', company: '', minGpa: 7.0, eligibleBranches: 'CSE, IT', location: '', salary: ''
   });
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const fetchDrives = useCallback(async () => {
     if (!currentTenant?.tenantId) return;

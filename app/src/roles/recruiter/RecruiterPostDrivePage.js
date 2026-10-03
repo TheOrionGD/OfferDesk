@@ -24,7 +24,7 @@ export function RecruiterPostDrivePage({ onDrivePosted }) {
   const [successMsg, setSuccessMsg] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://offerdesk-js-backend.onrender.com';
 
   const handlePostJob = async (e) => {
     e.preventDefault();
