@@ -1,5 +1,5 @@
 {
-  "appId": "com.offerdesk.saas.app",
+  "appId": "com.offerdesk.app",
   "appName": "OfferDesk Mobile",
   "webDir": "build",
   "server": {

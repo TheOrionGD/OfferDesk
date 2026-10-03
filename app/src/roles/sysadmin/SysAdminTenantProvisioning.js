@@ -3,19 +3,43 @@ import { useTenant } from '../../context/TenantContext';
 import { FaPlus, FaBuilding, FaTrash } from 'react-icons/fa';
 
 export function SysAdminTenantProvisioning() {
-  const { tenants, clearAllTenants, deleteTenant } = useTenant();
+  const { tenants, clearAllTenants, deleteTenant, createTenant } = useTenant();
   const [code, setCode] = useState('');
   const [name, setName] = useState('');
   const [domain, setDomain] = useState('');
+  const [placementOfficerName, setPlacementOfficerName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [plan, setPlan] = useState('PRO');
   const [msg, setMsg] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleAddTenant = (e) => {
+  const handleAddTenant = async (e) => {
     e.preventDefault();
-    setMsg(`✅ University Tenant "${name}" (${code}) successfully provisioned in SaaS database!`);
-    setCode('');
-    setName('');
-    setDomain('');
+    setSubmitting(true);
+    setMsg(null);
+
+    const res = await createTenant({
+      code,
+      name,
+      domain,
+      plan,
+      placementOfficerName,
+      contactEmail: contactEmail || `admin@${domain}`,
+    });
+
+    setSubmitting(false);
+    if (res.success) {
+      setMsg(`✅ Institution Tenant "${name}" (${code}) provisioned! Details sent via Brevo email to hello.theoriongd@gmail.com.`);
+      setCode('');
+      setName('');
+      setDomain('');
+      setPlacementOfficerName('');
+      setContactEmail('');
+    } else {
+      setMsg(`⚠️ Error creating tenant: ${res.error}`);
+    }
   };
+
 
   const handlePurgeAll = async () => {
     if (window.confirm('⚠️ Are you sure you want to remove ALL tenant data from the system? This action will wipe all onboarded institution tenant records.')) {
@@ -79,11 +103,20 @@ export function SysAdminTenantProvisioning() {
               <label className="block font-bold text-slate-700 mb-1">University Email Domain</label>
               <input type="text" required value={domain} onChange={e => setDomain(e.target.value)} placeholder="e.g. srmist.edu.in" className="w-full neu-input p-3 text-slate-800 font-semibold focus:outline-none" />
             </div>
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Placement Officer Name</label>
+              <input type="text" value={placementOfficerName} onChange={e => setPlacementOfficerName(e.target.value)} placeholder="e.g. Dr. R. Godfrey" className="w-full neu-input p-3 text-slate-800 font-semibold focus:outline-none" />
+            </div>
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Contact Email</label>
+              <input type="email" value={contactEmail} onChange={e => setContactEmail(e.target.value)} placeholder="e.g. placement@srmist.edu.in" className="w-full neu-input p-3 text-slate-800 font-semibold focus:outline-none" />
+            </div>
 
-            <button type="submit" className="neu-btn-primary text-xs font-bold w-full py-3">
-              Provision Institution Tenant
+            <button type="submit" disabled={submitting} className="neu-btn-primary text-xs font-bold w-full py-3">
+              {submitting ? 'Dispatching Brevo Email & Provisioning...' : 'Provision Institution Tenant & Dispatch Email'}
             </button>
           </form>
+
         </div>
 
         <div className="p-6 neu-card space-y-4">

@@ -68,6 +68,17 @@ export const TenantProvider = ({ children }) => {
     }
   };
 
+  const createTenant = async (tenantData) => {
+    try {
+      const res = await axios.post(`${API_BASE_URL}/api/tenants/request`, tenantData);
+      await fetchTenants();
+      return { success: true, tenant: res.data.tenant, message: res.data.message };
+    } catch (err) {
+      console.error('Failed to create tenant request:', err);
+      return { success: false, error: err.response?.data?.error || err.message };
+    }
+  };
+
   return (
     <TenantContext.Provider value={{ 
       tenants, 
@@ -75,6 +86,7 @@ export const TenantProvider = ({ children }) => {
       switchTenant, 
       clearAllTenants,
       deleteTenant,
+      createTenant,
       backendError, 
       loading, 
       tenantLoading: loading, 
@@ -83,6 +95,7 @@ export const TenantProvider = ({ children }) => {
       {children}
     </TenantContext.Provider>
   );
+
 };
 
 export const useTenant = () => useContext(TenantContext);

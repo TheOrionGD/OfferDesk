@@ -19,7 +19,7 @@ from groq_service import GroqLLMService
 
 app = FastAPI(
     title="OfferDesk AI ATS & Groq LLM Vector Engine",
-    description="Python FastAPI NLP Sentence-Transformers & Groq LLaMA 3.3 70B Candidate Ranking Microservice for OfferDesk SaaS",
+    description="Python FastAPI NLP Sentence-Transformers & Groq Qwen 3.8 27B Candidate Ranking Microservice for OfferDesk SaaS",
     version="2.0.0"
 )
 
@@ -106,7 +106,7 @@ def rank_candidates(payload: ScoreRequest):
 @app.post("/api/ai/prep-materials")
 def generate_prep_materials(req: PrepGeneratorRequest):
     """
-    AI Pre-Interview Study Material Generator powered by Groq LLaMA 3.3 70B.
+    AI Pre-Interview Study Material Generator powered by Groq Qwen 3.8 27B.
     """
     if groq_llm.is_configured():
         groq_result = groq_llm.generate_prep_materials(req.company, req.job_title, req.required_skills)
@@ -163,7 +163,7 @@ def generate_prep_materials(req: PrepGeneratorRequest):
         "sampleQuestions": sample_questions,
         "systemDesignPrep": system_design_prep,
         "aptitudeFocus": aptitude_focus,
-        "engine": "Standard Dynamic Engine (Configure GROQ_API_KEY for Groq LLaMA 3.3)"
+        "engine": "Standard Dynamic Engine (Configure GROQ_API_KEY for Groq Qwen 3.8 27B)"
     }
 
 class ChatModerationRequest(BaseModel):
@@ -174,7 +174,7 @@ class ChatModerationRequest(BaseModel):
 @app.post("/api/ai/moderate-chat")
 def moderate_chat(req: ChatModerationRequest):
     """
-    AI Chat Moderation powered by Groq LLaMA 3.3 70B.
+    AI Chat Moderation powered by Groq Qwen 3.8 27B.
     """
     if groq_llm.is_configured():
         groq_mod = groq_llm.moderate_chat_message(req.message)
@@ -195,7 +195,7 @@ def moderate_chat(req: ChatModerationRequest):
         "flaggedWords": detected,
         "severity": "CRITICAL" if len(detected) > 1 else ("WARNING" if is_toxic else "SAFE"),
         "analysis": "Toxicity and discriminatory language detected in English text" if is_toxic else "Message cleared safety filter.",
-        "engine": "Standard Keyword Safety Filter (Configure GROQ_API_KEY for Groq LLaMA 3.3)"
+        "engine": "Standard Keyword Safety Filter (Configure GROQ_API_KEY for Groq Qwen 3.8 27B)"
     }
 
 class NonPlacementReqModel(BaseModel):

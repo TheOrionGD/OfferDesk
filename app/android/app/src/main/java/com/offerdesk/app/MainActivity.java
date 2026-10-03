@@ -1,4 +1,4 @@
-package com.offerdesk.saas.app;
+package com.offerdesk.app;
 
 import com.getcapacitor.BridgeActivity;
 

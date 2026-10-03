@@ -1,13 +1,30 @@
 services:
   - type: web
-    name: offerdesk-backend-service
-    env: node
+    name: offerdesk-js-backend
+    runtime: node
     buildCommand: npm install
     startCommand: npm start
+    healthCheckPath: /api/health
     envVars:
       - key: PORT
-        value: 5001
+        value: "5001"
+      - key: NODE_ENV
+        value: production
       - key: MONGODB_URI
         sync: false
-      - key: AI_SERVICE_URL
+      - key: JWT_SECRET
         sync: false
+      - key: SMTP_HOST
+        value: smtp-relay.brevo.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        value: b463ca001@smtp-brevo.com
+      - key: SMTP_PASS
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
+      - key: SMTP_FROM_EMAIL
+        value: godfrey.cs23@krct.ac.in
+      - key: SMTP_FROM_NAME
+        value: OfferDesk Security

@@ -2,15 +2,16 @@ import os
 import json
 import urllib.request
 import urllib.error
+from typing import Optional, Dict, Any, List
 
 class GroqLLMService:
     """
     OfferDesk Groq LLM Microservice Integration
-    Leverages Groq LLaMA 3.3 70B Versatile for high-speed AI inference.
+    Leverages Groq Qwen 3.8 27B for high-speed AI inference.
     """
     def __init__(self):
         self.api_key = os.environ.get("GROQ_API_KEY", "").strip()
-        self.model = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile").strip()
+        self.model = os.environ.get("GROQ_MODEL", "qwen/qwen3.8-27b").strip()
         self.api_url = "https://api.groq.com/openai/v1/chat/completions"
 
     def is_configured(self) -> bool:

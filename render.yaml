@@ -1,0 +1,105 @@
+# Render Blueprint Spec for OfferDesk SaaS Ecosystem
+# Auto-deploy enabled for Frontend, JS Backend & ML Microservices
+version: "1"
+projects:
+- name: OfferDesk-SaaS
+  environments:
+  - name: Production
+    services:
+
+    # ----------------------------------------------------
+    # 1. OfferDesk Mobile & Web Frontend (React / Static)
+    # ----------------------------------------------------
+    - type: web
+      name: offerdesk-frontend
+      runtime: static
+      repo: https://github.com/TheOrionGD/OfferDesk
+      rootDir: app
+      buildCommand: npm install && npm run build
+      staticPublishPath: build
+      autoDeployTrigger: commit
+      routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+      envVars:
+      - key: REACT_APP_API_URL
+        sync: false
+      - key: REACT_APP_AI_SERVICE_URL
+        sync: false
+      - key: CAPACITOR_APP_ID
+        value: com.offerdesk.app
+      - key: CAPACITOR_APP_NAME
+        value: OfferDesk
+
+    # ----------------------------------------------------
+    # 2. OfferDesk Node.js Express REST API & Auth Service
+    # ----------------------------------------------------
+    - type: web
+      name: offerdesk-js-backend
+      runtime: node
+      repo: https://github.com/TheOrionGD/OfferDesk
+      plan: free
+      region: singapore
+      rootDir: services/js-services
+      buildCommand: npm install
+      startCommand: npm start
+      healthCheckPath: /api/health
+      autoDeployTrigger: commit
+      envVars:
+      - key: PORT
+        value: "5001"
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+
+      # Brevo SMTP & Email Configuration
+      - key: SMTP_HOST
+        value: smtp-relay.brevo.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        value: b463ca001@smtp-brevo.com
+      - key: SMTP_PASS
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
+      - key: SMTP_FROM_EMAIL
+        value: godfrey.cs23@krct.ac.in
+      - key: SMTP_FROM_NAME
+        value: OfferDesk Security
+      - key: EMAIL_SENDER_ADDRESS
+        value: godfrey.cs23@krct.ac.in
+      - key: EMAIL_SENDER_NAME
+        value: OfferDesk Security
+      - key: AI_SERVICE_URL
+        sync: false
+
+    # ----------------------------------------------------
+    # 3. OfferDesk Python FastAPI ML & ATS Matching Service
+    # ----------------------------------------------------
+    - type: web
+      name: offerdesk-ml-backend
+      runtime: python
+      repo: https://github.com/TheOrionGD/OfferDesk
+      plan: free
+      region: oregon
+      rootDir: services/ml-services
+      buildCommand: pip install -r requirements.txt
+      startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+      healthCheckPath: /health
+      autoDeployTrigger: commit
+      envVars:
+      - key: ML_HOST
+        value: 0.0.0.0
+      - key: SBERT_MODEL_NAME
+        value: all-MiniLM-L6-v2
+      - key: GROQ_MODEL
+        value: qwen/qwen3.8-27b
+      - key: GROQ_API_KEY
+        sync: false

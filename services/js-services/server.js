@@ -27,6 +27,7 @@ const QuestionBank = require('./models/QuestionBank');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const emailService = require('./emailService');
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -384,106 +385,16 @@ app.post('/api/auth/send-otp', async (req, res) => {
     userObj.otpExpiresAt = otpExpiresAt;
     await userObj.save();
 
-    // Dispatch OTP via Brevo API if BREVO_API_KEY is configured
-    if (process.env.BREVO_API_KEY) {
-      try {
-        await axios.post(
-          'https://api.brevo.com/v3/smtp/email',
-          {
-            sender: {
-              name: process.env.EMAIL_SENDER_NAME || 'OfferDesk Support',
-              email: process.env.EMAIL_SENDER_ADDRESS || 'godfrey.cs23@krct.ac.in'
-            },
-            to: [{ email }],
-            subject: `🔒 ${otpCode} is your OfferDesk Verification Code`,
-            htmlContent: `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OfferDesk Security Verification</title>
-</head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background-color: #f1f5f9; color: #1e293b;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f1f5f9; padding: 30px 10px;">
-    <tr>
-      <td align="center">
-        <table role="presentation" width="100%" style="max-width: 560px; background-color: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); border: 1px solid #e2e8f0;">
-          
-          <!-- Header Banner -->
-          <tr>
-            <td style="background-color: #0f172a; padding: 26px 32px; text-align: left;">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td>
-                    <span style="font-size: 24px; font-weight: 900; color: #ffffff; letter-spacing: -0.5px;">OfferDesk</span>
-                    <span style="display: inline-block; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; margin-left: 4px;"></span>
-                  </td>
-                  <td align="right">
-                    <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; background-color: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 12px;"> SSO</span>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- Main Body -->
-          <tr>
-            <td style="padding: 32px 32px 24px 32px; text-align: left;">
-              <h1 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 800; color: #0f172a; letter-spacing: -0.3px;">
-                Verify Your Account
-              </h1>
-              <p style="margin: 0 0 24px 0; font-size: 14px; line-height: 1.6; color: #475569; font-weight: 500;">
-                Use the following 6-digit One-Time Password (OTP) to authenticate your user session for <strong>${matchingTenant ? matchingTenant.name : 'OfferDesk Portal'}</strong>.
-              </p>
-
-              <!-- Amazon-Style OTP Display Box -->
-              <div style="background-color: #ecfdf5; border: 2px dashed #10b981; border-radius: 16px; padding: 24px; text-align: center; margin-bottom: 24px;">
-                <span style="font-size: 11px; font-weight: 800; color: #047857; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 8px;">Your Security Verification Code</span>
-                <div style="font-family: 'Courier New', Courier, monospace; font-size: 38px; font-weight: 900; color: #059669; letter-spacing: 12px; line-height: 1; padding: 8px 0;">
-                  ${otpCode}
-                </div>
-                <span style="font-size: 12px; font-weight: 700; color: #059669; display: block; margin-top: 8px;">⏱️ Valid for 10 minutes</span>
-              </div>
-
-              <!-- Security Information Callout Box -->
-              <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; border-radius: 8px; padding: 14px 18px; margin-bottom: 20px;">
-                <p style="margin: 0; font-size: 12px; line-height: 1.5; color: #334155; font-weight: 600;">
-                  🔒 <strong>Security Warning:</strong> Never share this code with anyone. OfferDesk administrators and placement officers will never ask for your OTP.
-                </p>
-              </div>
-
-              <p style="margin: 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">
-                If you did not request this verification code, please ignore this email or notify your  system administrator.
-              </p>
-            </td>
-          </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #f8fafc; padding: 18px 32px; border-top: 1px solid #e2e8f0; text-align: center;">
-              <p style="margin: 0 0 6px 0; font-size: 11px; font-weight: 700; color: #64748b;">
-                © 2026 OfferDesk SaaS Ecosystem. All rights reserved.
-              </p>
-              <p style="margin: 0; font-size: 10px; color: #94a3b8;">
-                Automated  Security Notification • Please do not reply to this email.
-              </p>
-            </td>
-          </tr>
-
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-            `
-          },
-          { headers: { 'api-key': process.env.BREVO_API_KEY, 'content-type': 'application/json' } }
-        );
-      } catch (brevoErr) {
-        console.warn('Brevo API Mailer Warning:', brevoErr.message);
-      }
+    // Dispatch OTP via Brevo SMTP / API emailService
+    try {
+      await emailService.sendOTPVerificationEmail(email, {
+        recipientName: userObj.name || email.split('@')[0],
+        otpCode,
+        expiresMinutes: 10,
+        tenantName: matchingTenant ? matchingTenant.name : 'OfferDesk Platform',
+      });
+    } catch (emailErr) {
+      console.warn('⚠️ OTP Email delivery notice:', emailErr.message);
     }
 
     res.json({
@@ -496,6 +407,158 @@ app.post('/api/auth/send-otp', async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+// ----------------------------------------------------
+// OFFERDESK SYSTEM HTML EMAIL PREVIEW & DISPATCH API
+// ----------------------------------------------------
+
+/**
+ * Preview all system HTML email templates directly in browser or HTML JSON
+ */
+app.get('/api/email/preview-all', (req, res) => {
+  const sampleData = {
+    recipientName: 'Alex Morgan',
+    otpCode: '849201',
+    expiresMinutes: 10,
+    tenantName: 'KRamakrishnan College of Technology (KRCT)',
+    resetLink: 'https://offerdesk.app/reset-password?token=sample_token',
+    resetCode: 'RST-9942',
+    driveTitle: 'Software Development Engineer Drive 2026',
+    companyName: 'Microsoft Corporation',
+    role: 'Backend Systems Engineer',
+    packageInfo: '18 LPA (Base + Benefits)',
+    deadline: '2026-10-15',
+    location: 'Auditorium Hall A & Virtual',
+    applyUrl: 'https://offerdesk.app/drives/job_102',
+    status: 'Shortlisted for Technical Interview',
+    statusColor: 'success',
+    message: 'Your ATS score was 94%. You have been selected for Round 2.',
+    nextSteps: 'Please ensure your camera and microphone are operational prior to the session.',
+    roundName: 'Technical Round 1: System Design & Coding',
+    date: 'Monday, Oct 12, 2026',
+    time: '10:30 AM IST',
+    venueOrLink: 'https://meet.google.com/abc-defg-hij',
+    instructions: 'Prepare live coding environment with Node.js & Python.',
+    CTC: '18 LPA',
+    joiningDate: 'July 2026',
+    verificationCode: 'OFFER-2026-KRCT-991',
+    acceptUrl: 'https://offerdesk.app/offers/verify/OFFER-2026-KRCT-991',
+    mentorName: 'Dr. Godfrey (Senior Tech Architect)',
+    topic: 'Resume Review & High Scalability Architecture',
+    sessionDate: 'Saturday, Oct 10, 2026',
+    sessionTime: '04:00 PM IST',
+    meetingLink: 'https://offerdesk.app/mentorship/room/901',
+    loginTime: new Date().toLocaleString(),
+    device: 'Chrome 128 (Windows 11 x64)',
+    ipAddress: '103.15.224.12',
+    location: 'Chennai, TN, India',
+    actionUrl: 'https://offerdesk.app/security/account',
+  };
+
+  const templatesList = {
+    otpVerification: emailService.templates.getOTPVerificationTemplate(sampleData),
+    passwordReset: emailService.templates.getPasswordResetTemplate(sampleData),
+    driveAnnouncement: emailService.templates.getDriveAnnouncementTemplate(sampleData),
+    applicationStatus: emailService.templates.getApplicationStatusTemplate(sampleData),
+    interviewInvitation: emailService.templates.getInterviewInvitationTemplate(sampleData),
+    offerRelease: emailService.templates.getOfferReleaseTemplate(sampleData),
+    mentorshipBooking: emailService.templates.getMentorshipBookingTemplate(sampleData),
+    securityAlert: emailService.templates.getSecurityAlertTemplate(sampleData),
+    tenantCreation: emailService.templates.getTenantCreationNotificationTemplate({
+      tenantId: 'tenant01',
+      name: 'SRM Institute of Science & Technology',
+      code: 'SRM',
+      domain: 'srmist.edu.in',
+      plan: 'PRO',
+      status: 'PENDING',
+      placementOfficerName: 'Dr. R. Godfrey',
+      contactEmail: 'placement@srmist.edu.in',
+      accreditation: 'NAAC A++',
+      submittedAt: new Date().toLocaleString(),
+    }),
+  };
+
+  const { templateKey } = req.query;
+  if (templateKey && templatesList[templateKey]) {
+    res.setHeader('Content-Type', 'text/html');
+    return res.send(templatesList[templateKey]);
+  }
+
+  res.json({
+    success: true,
+    message: 'OfferDesk System HTML Email Templates rendered successfully.',
+    availableTemplates: Object.keys(templatesList),
+    previewHint: 'Pass ?templateKey=tenantCreation (or any key) in URL to view rendered HTML page.',
+    templatesHTML: templatesList,
+  });
+});
+
+/**
+ * Dispatch test email to any address using Brevo SMTP
+ * Note: hello.theoriongd@gmail.com receives SysAdmin tenant creation emails,
+ * while other feature emails route dynamically to the current requesting user email.
+ */
+app.post('/api/email/send-test', async (req, res) => {
+  try {
+    const { to = req.user?.email || req.body.email || 'hello.theoriongd@gmail.com', templateType = 'tenantCreation', customData = {} } = req.body;
+    if (!to) {
+      return res.status(400).json({ success: false, error: 'Target email address (to) is required.' });
+    }
+
+    let result;
+    const data = { recipientName: to.split('@')[0], ...customData };
+
+    switch (templateType) {
+      case 'otpVerification':
+        result = await emailService.sendOTPVerificationEmail(to, { otpCode: '998241', expiresMinutes: 10, ...data });
+        break;
+      case 'passwordReset':
+        result = await emailService.sendPasswordResetEmail(to, { resetLink: 'https://offerdesk.app/reset', resetCode: 'RST-1234', ...data });
+        break;
+      case 'driveAnnouncement':
+        result = await emailService.sendDriveAnnouncementEmail(to, { companyName: 'Amazon', driveTitle: 'SDE 1 Campus Hiring', CTC: '22 LPA', ...data });
+        break;
+      case 'applicationStatus':
+        result = await emailService.sendApplicationStatusEmail(to, { companyName: 'Google', driveTitle: 'SWE Internship', status: 'Shortlisted', ...data });
+        break;
+      case 'interviewInvitation':
+        result = await emailService.sendInterviewInvitationEmail(to, { companyName: 'Microsoft', roundName: 'Technical Round 1', date: 'Tomorrow 10:00 AM', ...data });
+        break;
+      case 'offerRelease':
+        result = await emailService.sendOfferReleaseEmail(to, { companyName: 'Cisco', CTC: '16.5 LPA', verificationCode: 'OFFER-CSC-990', ...data });
+        break;
+      case 'mentorshipBooking':
+        result = await emailService.sendMentorshipBookingEmail(to, { mentorName: 'TPO Lead', topic: 'Mock Technical Interview', ...data });
+        break;
+      case 'securityAlert':
+        result = await emailService.sendSecurityAlertEmail(to, { device: 'Chrome on Windows 11', ipAddress: '103.22.11.4', ...data });
+        break;
+      case 'tenantCreation':
+        result = await emailService.sendTenantCreationNotificationEmail({
+          tenantId: data.tenantId || 'tenant01',
+          name: data.name || 'SRM Institute of Science & Technology',
+          code: data.code || 'SRM',
+          domain: data.domain || 'srmist.edu.in',
+          plan: 'PRO',
+          status: data.status || 'PENDING',
+          placementOfficerName: data.placementOfficerName || 'Dr. Godfrey',
+          contactEmail: data.contactEmail || 'placement@srmist.edu.in',
+          submittedAt: new Date().toLocaleString(),
+          ...data,
+        });
+        break;
+      default:
+        return res.status(400).json({ success: false, error: `Invalid templateType. Choose from: otpVerification, passwordReset, driveAnnouncement, applicationStatus, interviewInvitation, offerRelease, mentorshipBooking, securityAlert, tenantCreation` });
+    }
+
+    res.json({ success: true, message: `Email (${templateType}) sent successfully via Brevo SMTP to ${to}`, result });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+
+
 
 app.post('/api/auth/verify-otp', async (req, res) => {
   try {
@@ -609,6 +672,56 @@ app.post('/api/sysadmin/tenants/seed-default', authenticate, sysadminAuthenticat
   return res.status(400).json({ success: false, error: 'Automatic tenant seeding is disabled. Please provision tenants through client interface.' });
 });
 
+// Public endpoint for submitting a Tenant Creation / Institution Onboarding Request Form
+app.post('/api/tenants/request', async (req, res) => {
+  try {
+    const { name, code, domain, plan = 'PRO', placementOfficerName = '', contactEmail = '' } = req.body;
+    if (!name || !code || !domain) {
+      return res.status(400).json({ success: false, error: 'Institution Name, Code, and Domain are required fields.' });
+    }
+
+    const count = await Tenant.countDocuments();
+    const tenantId = `tenant${String(count + 1).padStart(2, '0')}`;
+
+    const newTenant = await Tenant.create({
+      tenantId,
+      name,
+      code,
+      domain,
+      plan: plan || 'PRO',
+      status: 'PENDING',
+      placementOfficerName,
+      contactEmail
+    });
+
+    // Automatically send full tenant creation form details via Brevo email to hello.theoriongd@gmail.com
+    try {
+      await emailService.sendTenantCreationNotificationEmail({
+        tenantId,
+        name,
+        code,
+        domain,
+        plan: plan || 'PRO',
+        status: 'PENDING',
+        placementOfficerName,
+        contactEmail,
+        submittedAt: new Date().toLocaleString(),
+      });
+      console.log(`✅ Automated Tenant Creation Email dispatched to hello.theoriongd@gmail.com for ${name}`);
+    } catch (emailErr) {
+      console.warn(`⚠️ Failed to dispatch tenant creation email to hello.theoriongd@gmail.com:`, emailErr.message);
+    }
+
+    res.status(201).json({
+      success: true,
+      message: `University tenant onboarding request submitted for ${name}. Details sent to hello.theoriongd@gmail.com`,
+      tenant: newTenant
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 app.post('/api/sysadmin/tenants', authenticate, sysadminAuthenticate, async (req, res) => {
   try {
     const { name, code, domain, plan, placementOfficerName, contactEmail } = req.body;
@@ -640,11 +753,30 @@ app.post('/api/sysadmin/tenants', authenticate, sysadminAuthenticate, async (req
       details: `${req.user.role} (${req.user.id}) requested new university tenant onboarding for ${name} (${domain}). Status: PENDING approval.`
     });
 
+    // Automatically send full tenant creation form details via Brevo email to hello.theoriongd@gmail.com
+    try {
+      await emailService.sendTenantCreationNotificationEmail({
+        tenantId,
+        name,
+        code,
+        domain,
+        plan: plan || 'PRO',
+        status: 'PENDING',
+        placementOfficerName,
+        contactEmail,
+        submittedAt: new Date().toLocaleString(),
+      });
+      console.log(`✅ Automated Tenant Creation Email dispatched to hello.theoriongd@gmail.com for ${name}`);
+    } catch (emailErr) {
+      console.warn(`⚠️ Failed to dispatch tenant creation email to hello.theoriongd@gmail.com:`, emailErr.message);
+    }
+
     res.status(201).json({ success: true, tenant: newTenant });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
 
 app.patch('/api/sysadmin/tenants/:tenantId/status', authenticate, sysadminAuthenticate, async (req, res) => {
   try {
