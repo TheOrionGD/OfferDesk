@@ -126,7 +126,7 @@ classDiagram
 ## 4. Microservices Technical Breakdown
 
 ### Service 1: Node.js Express REST API (`services/js-services/`)
-- **File Entry**: [`services/js-services/server.js`](file:///o:/OfferDesk/services/js-services/server.js)
+- **File Entry**: [`services/js-services/server.js`](./services/js-services/server.js)
 - **Port**: `5001` (Configurable via `PORT`)
 - **Key Modules**:
   - `emailService.js`: Brevo SMTP connection wrapper for sending OTPs, offer letters, security alerts, and password resets.
@@ -142,7 +142,7 @@ classDiagram
 ---
 
 ### Service 2: Python FastAPI AI Engine (`services/ml-services/`)
-- **File Entry**: [`services/ml-services/main.py`](file:///o:/OfferDesk/services/ml-services/main.py)
+- **File Entry**: [`services/ml-services/main.py`](./services/ml-services/main.py)
 - **Port**: `8000` (Configurable via `ML_PORT`)
 - **Core Dependencies**: `fastapi`, `uvicorn`, `pydantic`, `scikit-learn`, `sentence-transformers` (optional), `urllib3`.
 - **Key Files**:
@@ -174,9 +174,9 @@ flowchart LR
 ---
 
 ### Service 3: React 18 & Capacitor 5 Mobile App (`app/`)
-- **File Entry**: [`app/src/index.js`](file:///o:/OfferDesk/app/src/index.js), [`app/src/App.js`](file:///o:/OfferDesk/app/src/App.js)
-- **Configuration**: [`app/capacitor.config.json`](file:///o:/OfferDesk/app/capacitor.config.json), [`app/tailwind.config.js`](file:///o:/OfferDesk/app/tailwind.config.js)
-- **Native Android Configuration**: [`app/android/app/build.gradle`](file:///o:/OfferDesk/app/android/app/build.gradle)
+- **File Entry**: [`app/src/index.js`](./app/src/index.js), [`app/src/App.js`](./app/src/App.js)
+- **Configuration**: [`app/capacitor.config.json`](./app/capacitor.config.json), [`app/tailwind.config.js`](./app/tailwind.config.js)
+- **Native Android Configuration**: [`app/android/app/build.gradle`](./app/android/app/build.gradle)
 
 #### Capacitor Native Plugins Integrated
 - `@capacitor/android`: Native Android bridge framework.
@@ -189,7 +189,7 @@ flowchart LR
 
 ## 5. MongoDB Database Schemas & Data Models
 
-All data models reside in [`services/js-services/models/`](file:///o:/OfferDesk/services/js-services/models/).
+All data models reside in [`services/js-services/models/`](./services/js-services/models/).
 
 ```mermaid
 erDiagram
@@ -265,7 +265,7 @@ erDiagram
 ## 7. AI / ML Engine & Vector Processing
 
 ### Cosine Vector Matching Implementation
-The `NLPVectorMatcher` class ([`services/ml-services/ats_matcher.py`](file:///o:/OfferDesk/services/ml-services/ats_matcher.py)) handles text tokenization, TF-IDF matrix vectorization, and cosine similarity calculation:
+The `NLPVectorMatcher` class ([`services/ml-services/ats_matcher.py`](./services/ml-services/ats_matcher.py)) handles text tokenization, TF-IDF matrix vectorization, and cosine similarity calculation:
 
 $$\text{Cosine Similarity} = \frac{\vec{V}_1 \cdot \vec{V}_2}{\|\vec{V}_1\| \|\vec{V}_2\|} = \frac{\sum_{i=1}^{n} v_{1i} v_{2i}}{\sqrt{\sum_{i=1}^{n} v_{1i}^2} \sqrt{\sum_{i=1}^{n} v_{2i}^2}}$$
 
@@ -278,7 +278,7 @@ $$\text{Cosine Similarity} = \frac{\vec{V}_1 \cdot \vec{V}_2}{\|\vec{V}_1\| \|\v
 
 ### Environment Configuration Setup
 
-#### Root Credentials ([`atlas-credentials.env`](file:///o:/OfferDesk/atlas-credentials.env))
+#### Root Credentials ([`atlas-credentials.env`](./atlas-credentials.env))
 ```env
 MONGODB_USERNAME="godfreytrprof_db_user"
 MONGODB_PASSWORD="<password>"
@@ -286,7 +286,7 @@ MONGODB_URI="mongodb+srv://godfreytrprof_db_user:<password>@hellotheoriongd.rbxb
 COLLECTION NAME/DATABASE NAME="OfferDesk"
 ```
 
-#### Express API Backend ([`services/js-services/.env`](file:///o:/OfferDesk/services/js-services/.env))
+#### Express API Backend ([`services/js-services/.env`](./services/js-services/.env))
 ```env
 PORT=5001
 NODE_ENV=development
@@ -303,7 +303,7 @@ SMTP_FROM_NAME=OfferDesk Security
 AI_SERVICE_URL=https://offerdesk-ml-backend.onrender.com
 ```
 
-#### Python ML Engine ([`services/ml-services/.env`](file:///o:/OfferDesk/services/ml-services/.env))
+#### Python ML Engine ([`services/ml-services/.env`](./services/ml-services/.env))
 ```env
 ML_HOST=0.0.0.0
 ML_PORT=8000
@@ -312,7 +312,7 @@ GROQ_API_KEY=<groq_key>
 GROQ_MODEL=qwen/qwen3.8-27b
 ```
 
-#### React / Capacitor App ([`app/.env`](file:///o:/OfferDesk/app/.env))
+#### React / Capacitor App ([`app/.env`](./app/.env))
 ```env
 REACT_APP_API_URL=https://offerdesk-js-backend.onrender.com
 REACT_APP_AI_SERVICE_URL=https://offerdesk-ml-backend.onrender.com
@@ -325,7 +325,7 @@ GENERATE_SOURCEMAP=false
 
 ### Operating via Master System Orchestrator (`run_system.ps1`)
 
-The repository includes a PowerShell master orchestrator ([`run_system.ps1`](file:///o:/OfferDesk/run_system.ps1)):
+The repository includes a PowerShell master orchestrator ([`run_system.ps1`](./run_system.ps1)):
 
 ```powershell
 # 1. Run environment pre-flight health checks
@@ -369,7 +369,7 @@ cd android
 
 ## 9. Automated Test Suite
 
-The repository contains an automated Node.js test suite in [`scripts/`](file:///o:/OfferDesk/scripts/):
+The repository contains an automated Node.js test suite in [`scripts/`](./scripts/):
 
 ```powershell
 # Run full automated role verification suite
@@ -392,7 +392,7 @@ node run_all_role_tests.js
 
 ## 10. Render Infrastructure Deployment Blueprint
 
-The repository contains a production Blueprint Spec ([`render.yaml`](file:///o:/OfferDesk/render.yaml)) configured for Render auto-deployment:
+The repository contains a production Blueprint Spec ([`render.yaml`](./render.yaml)) configured for Render auto-deployment:
 
 | Service Name | Type | Runtime | Root Dir | Build Command | Start Command |
 | :--- | :--- | :--- | :--- | :--- | :--- |

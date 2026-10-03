@@ -2,9 +2,11 @@
 
 # Built application files
 *.apk
+!app/build/outputs/apk/release/app-release.apk
 *.aar
 *.ap_
 *.aab
+!app/build/outputs/bundle/release/app-release.aab
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -21,7 +23,14 @@ out/
 
 # Gradle files
 .gradle/
-build/
+app/build/intermediates/
+app/build/generated/
+app/build/tmp/
+app/build/reports/
+app/build/test-results/
+app/build/kotlin/
+app/build/outputs/apk/debug/
+app/build/outputs/logs/
 
 # Local configuration file (sdk path, etc)
 local.properties

@@ -1,2 +1,12 @@
-/build/*
-!/build/.npmkeep
+# Ignore everything inside build directory
+build/**
+
+# Un-ignore specific release files and parent directories
+!build/outputs/
+!build/outputs/apk/
+!build/outputs/apk/release/
+!build/outputs/apk/release/app-release.apk
+
+!build/outputs/bundle/
+!build/outputs/bundle/release/
+!build/outputs/bundle/release/app-release.aab

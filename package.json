@@ -1,6 +1,6 @@
 {
   "name": "offerdesk-saas-platform",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "OfferDesk Multi-Tenant SaaS Ecosystem (Capacitor Mobile App, Web Portal Console, & Services)",
   "scripts": {

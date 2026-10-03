@@ -37,7 +37,7 @@ app/build/
 app/dist/
 dist/
 out/
-build/
+/build/
 .next/
 .nuxt/
 .cache/
@@ -68,11 +68,20 @@ Pipfile.lock
 # General Capacitor temporary folders
 app/android/.gradle/
 app/android/local.properties
-app/android/app/build/
 app/android/build/
 app/android/captmp/
 app/android/.idea/
 app/android/*.iml
+
+# Build directory ignore rules (excludes debug & intermediate files, retains release APK & AAB)
+app/android/app/build/intermediates/
+app/android/app/build/generated/
+app/android/app/build/tmp/
+app/android/app/build/reports/
+app/android/app/build/test-results/
+app/android/app/build/kotlin/
+app/android/app/build/outputs/apk/debug/
+app/android/app/build/outputs/logs/
 
 # ------------------------------------------------------------------------------
 # 6. IDE / Editor Configurations
